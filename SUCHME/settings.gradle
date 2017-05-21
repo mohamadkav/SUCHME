@@ -1,3 +1,4 @@
 rootProject.name = 'ir.suchme'
 include 'core'
+include 'common'
 
