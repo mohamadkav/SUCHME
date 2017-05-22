@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "USER")
+@Table(name = "T_CORE_USER")
 public class User extends BaseEntity{
     @Column(name = "USERNAME")
     private String userName;
@@ -19,7 +19,7 @@ public class User extends BaseEntity{
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE", joinColumns = {
+    @JoinTable(name = "T_USER_ROLE", joinColumns = {
             @JoinColumn(name = "USERID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "ROLEID",
                     nullable = false, updatable = false) })

@@ -52,6 +52,9 @@ public class BaseEntity {
         return created;
     }
 
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
     public Boolean getDeleted() {
         return deleted;

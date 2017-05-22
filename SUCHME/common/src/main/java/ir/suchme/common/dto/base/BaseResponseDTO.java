@@ -8,6 +8,15 @@ public class BaseResponseDTO {
     private String responseCode;
     private String userId;
 
+    public BaseResponseDTO(String error, String responseCode, String userId) {
+        this.error = error;
+        this.responseCode = responseCode;
+        this.userId = userId;
+    }
+
+    public BaseResponseDTO() {
+    }
+
     public String getError() {
         return error;
     }

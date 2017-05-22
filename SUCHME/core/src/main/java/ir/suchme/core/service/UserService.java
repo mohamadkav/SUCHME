@@ -1,5 +1,6 @@
 package ir.suchme.core.service;
 
+import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
 import ir.suchme.common.dto.user.ResponseUserDTO;
 import ir.suchme.core.domain.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -51,5 +53,16 @@ public class UserService {
             session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         }
         return response;
+    }
+
+    public BaseResponseDTO create(RequestAuthenticateDTO request){
+        if(userRepository.findByUserNameAndDeletedIsFalse(request.getUserName())!=null)
+            return new BaseResponseDTO("User already exists","400",null);
+        User user=new User();
+        user.setUserName(request.getUserName());
+        user.setPassword(request.getPassword());
+        user.setCreated(new Date());
+        userRepository.save(user);
+        return new BaseResponseDTO(null,"0",null);
     }
 }

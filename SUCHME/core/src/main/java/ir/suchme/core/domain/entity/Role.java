@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by mohammad on 5/22/17.
  */
 @Entity
-@Table(name = "ROLE")
+@Table(name = "T_CORE_ROLE")
 public class Role extends BaseEntity {
     @Column(name = "NAME")
     private String roleName;

@@ -1,5 +1,6 @@
 package ir.suchme.core.controller;
 
+import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
 import ir.suchme.common.dto.user.ResponseUserDTO;
 import ir.suchme.core.service.UserService;
@@ -46,6 +47,24 @@ public class UserController {
             responseUserDTO.setResponseCode("-1");
             LOG.error("UserController : auth | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return responseUserDTO;
+        }
+    }
+
+    @RequestMapping( method = RequestMethod.POST,value = "/create")
+    public BaseResponseDTO create(@RequestBody RequestAuthenticateDTO request) {
+        long startTime = System.currentTimeMillis();
+        BaseResponseDTO baseResponseDTO =new BaseResponseDTO();
+        try {
+            request.validation();
+            baseResponseDTO = userService.create(request);
+            LOG.info("create : Success | Auth: {}", baseResponseDTO.getResponseCode());
+            return baseResponseDTO;
+        } catch (Exception e) {
+            long finishTime = System.currentTimeMillis();
+            baseResponseDTO.setError(e.getMessage());
+            baseResponseDTO.setResponseCode("-1");
+            LOG.error("UserController : create | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return baseResponseDTO;
         }
     }
 
