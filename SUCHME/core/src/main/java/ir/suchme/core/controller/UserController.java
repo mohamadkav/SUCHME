@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +35,7 @@ public class UserController {
 
     @RequestMapping( method = RequestMethod.POST,value = "/login")
     public ResponseUserDTO auth(HttpServletRequest request,@RequestBody RequestAuthenticateDTO dto) {
+        System.out.println(request.getSession().getId());
         long startTime = System.currentTimeMillis();
         ResponseUserDTO responseUserDTO =new ResponseUserDTO();
         try {
@@ -66,6 +68,13 @@ public class UserController {
             LOG.error("UserController : create | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return baseResponseDTO;
         }
+    }
+
+    @RequestMapping( method = RequestMethod.GET,value = "/list")
+    public ArrayList<ResponseUserDTO> list() {
+        long startTime = System.currentTimeMillis();
+        BaseResponseDTO baseResponseDTO =new BaseResponseDTO();
+        return userService.list();
     }
 
 

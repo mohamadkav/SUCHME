@@ -1,6 +1,5 @@
 package ir.suchme.common.dto.user;
 
-import com.sun.tools.javac.util.Assert;
 import ir.suchme.common.dto.base.RequestDTO;
 
 /**
@@ -12,8 +11,9 @@ public class RequestAuthenticateDTO implements RequestDTO {
 
     @Override
     public void validation() {
-        Assert.checkNonNull(userName);
-        Assert.checkNonNull(password);
+
+//        Assert.checkNonNull(userName);
+//        Assert.checkNonNull(password);
     }
 
     public String getUserName() {

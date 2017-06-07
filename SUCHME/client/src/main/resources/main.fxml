@@ -3,6 +3,9 @@
 <?import com.gluonhq.charm.glisten.control.AppBar?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -14,13 +17,43 @@
          <font>
             <Font size="34.0" />
          </font></Label>
-      <Button fx:id="button" layoutX="24.0" layoutY="10.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="126.0" style="-fx-background-color: #99c1ef;" text="خروج" />
+      <Button fx:id="exit" layoutX="24.0" layoutY="10.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="126.0" style="-fx-background-color: #99c1ef;" text="خروج" />
       <Label layoutX="197.0" layoutY="20.0" prefHeight="25.0" prefWidth="174.0" text="خوش آمدید" />
-      <Pane fx:id="primaryPane" layoutX="97.0" layoutY="113.0" prefHeight="464.0" prefWidth="907.0">
+      <Pane fx:id="primaryPane" layoutX="2.0" layoutY="153.0" prefHeight="424.0" prefWidth="1002.0">
          <children>
-            <!--<fx:include source="fxml_example2.fxml"/>-->
-            <Label text="Label" />
+            <fx:include source="account.fxml"></fx:include>
          </children>
       </Pane>
+      <MenuBar layoutX="508.0" layoutY="85.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="65.0" prefWidth="496.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="انبار داری">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="گزارش گیری">
+            <items>
+                <MenuItem fx:id="customersActivityReport" mnemonicParsing="false" text="گزارش فعالیت مشتریان" />
+                <MenuItem fx:id="employeesActivityReport" mnemonicParsing="false" text="گزارش فعالیت کارمندان" />
+                <MenuItem fx:id="employeeActivityReport" mnemonicParsing="false" text="گزارش فعالیت کارمند" />
+                <MenuItem fx:id="processReport" mnemonicParsing="false" text="گزارش فرایند" />
+                <MenuItem fx:id="productBalanceReport" mnemonicParsing="false" text="گزارش لیست کلی محصولات" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="پیش بینی">
+            <items>
+                <MenuItem mnemonicParsing="false" text="پیش بینی زمان تحویل" />
+                <MenuItem mnemonicParsing="false" text="پیش بینی قیمت" />
+                <MenuItem mnemonicParsing="false" text="پیش بینی حداقل و حداکثر موجودی" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="سفارش و تامین">
+              <items>
+                <MenuItem mnemonicParsing="false" text="سفارش کالا" />
+                  <MenuItem mnemonicParsing="false" text="سفارش مولفه جدید" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

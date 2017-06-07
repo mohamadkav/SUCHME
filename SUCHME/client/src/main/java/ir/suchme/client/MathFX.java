@@ -18,7 +18,7 @@ public class MathFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml_example.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main.fxml"));
 
         Scene scene = new Scene(root, 1002, 756);
 

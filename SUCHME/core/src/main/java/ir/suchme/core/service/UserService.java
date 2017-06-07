@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -64,5 +65,16 @@ public class UserService {
         user.setCreated(new Date());
         userRepository.save(user);
         return new BaseResponseDTO(null,"0",null);
+    }
+
+    public ArrayList<ResponseUserDTO> list(){
+        ArrayList<ResponseUserDTO> dtos = new ArrayList<>();
+        for (User u: userRepository.findAll())
+        {
+            ResponseUserDTO dto = new ResponseUserDTO();
+            dto.setUserId(u.getId().toString());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
