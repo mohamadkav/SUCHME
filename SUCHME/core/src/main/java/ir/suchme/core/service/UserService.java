@@ -39,7 +39,7 @@ public class UserService {
         User user=userRepository.findByUserNameAndDeletedIsFalse(request.getUserName());
         ResponseUserDTO response;
         if(user==null)
-            response=new ResponseUserDTO(null,"301");
+            response=new ResponseUserDTO("User not found",null,"301");
         else {
             response = new ResponseUserDTO(user.getId().toString(), "0");
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword());

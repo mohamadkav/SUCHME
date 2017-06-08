@@ -1,6 +1,8 @@
 package ir.suchme.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import ir.suchme.common.dto.base.BaseResponseDTO;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -13,12 +15,8 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,11 +33,13 @@ public class SuchmeClient {
     private HttpGet getRequest;
     private ResponseHandler<String> responseHandler = new MyResponseHandler();
     private static SuchmeClient instance;
+    private ObjectMapper objectMapper;
 
 
 
     private SuchmeClient()
     {
+        objectMapper=new ObjectMapper();
         CookieStore cookieStore = new BasicCookieStore();
         BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", getSessionId());
         cookie.setPath(BASE_URL);
@@ -62,26 +62,23 @@ public class SuchmeClient {
 
     }
 
-    public String postRequestAndWaitForResponse(String url, Object param)
+    public <T extends BaseResponseDTO> T postRequestAndWaitForResponse(String url, Object param, Class<T> responseType)
     {
         String fullUrl = BASE_URL + url;
         postRequest = new HttpPost(fullUrl);
         postRequest.setHeader("Content-type", "application/json");
-        String out;
+        String result;
         try {
             postRequest.setEntity(new StringEntity(gson.toJson(param)));
-            out = client.execute(postRequest, responseHandler);
+            result = client.execute(postRequest, responseHandler);
 //            for (int i = 0; i < postRequest.getAllHeaders().length; i++) {
 //                System.out.println("requesst:   "+postRequest.getAllHeaders()[i].getName());
 //            }
-        }
-        catch (Exception e)
-        {
+            return objectMapper.readValue(result, responseType);
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-        return out;
     }
 
     public String getRequestAndWaitForResponse(String url, Object param)

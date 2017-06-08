@@ -13,6 +13,10 @@ public class ResponseUserDTO extends BaseResponseDTO {
         setResponseCode(responseCode);
     }
 
+    public ResponseUserDTO(String error, String responseCode, String userId) {
+        super(error, responseCode, userId);
+    }
+
     public ResponseUserDTO() {
     }
 }
