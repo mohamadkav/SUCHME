@@ -11,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "T_CORE_USER")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "USER_TYPE")
 public class User extends BaseEntity{
     @Column(name = "USERNAME")
     private String userName;
@@ -18,12 +20,29 @@ public class User extends BaseEntity{
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "T_USER_ROLE", joinColumns = {
             @JoinColumn(name = "USERID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "ROLEID",
                     nullable = false, updatable = false) })
     private Set<Role> roles;
+
+
+    public User(String userName, String password, String name, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+    }
+
+    public User() {
+    }
 
     public String getUserName() {
         return userName;
@@ -47,5 +66,21 @@ public class User extends BaseEntity{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

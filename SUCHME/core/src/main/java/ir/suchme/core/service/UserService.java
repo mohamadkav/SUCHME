@@ -2,23 +2,15 @@ package ir.suchme.core.service;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
+import ir.suchme.common.dto.user.RequestCreateUserDTO;
 import ir.suchme.common.dto.user.ResponseUserDTO;
 import ir.suchme.core.catalogue.UserCatalogue;
 import ir.suchme.core.domain.entity.User;
-import ir.suchme.core.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by mohammad on 5/21/17.
@@ -44,10 +36,10 @@ public class UserService {
         return response;
     }
 
-    public BaseResponseDTO create(RequestAuthenticateDTO request){
+    public BaseResponseDTO create(RequestCreateUserDTO request){
         if(userCatalogue.findUser(request.getUserName())!=null)
             return new BaseResponseDTO("User already exists","400",null);
-        userCatalogue.addUser(request.getUserName(),request.getPassword());
+        userCatalogue.addUser(request.getUserName(),request.getPassword(),request.getName(),request.getEmail());
         return new BaseResponseDTO(null,"0",null);
     }
 

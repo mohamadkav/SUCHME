@@ -2,22 +2,21 @@ package ir.suchme.client;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
-import ir.suchme.common.dto.user.ResponseUserDTO;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import ir.suchme.common.dto.user.RequestCreateUserDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
  * Created by Farzin on 6/6/2017.
  */
-public class UserAccountPresenter implements Initializable{
+public class LoginPresenter implements Initializable{
 
     @FXML private TextField loginUsername;
     @FXML private TextField loginPassword;
@@ -33,8 +32,19 @@ public class UserAccountPresenter implements Initializable{
 
         loginButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();
-            BaseResponseDTO out = client.postRequestAndWaitForResponse("/user/login", new RequestAuthenticateDTO(loginUsername.getText(),loginPassword.getText()), ResponseUserDTO.class);
+            BaseResponseDTO out = client.postRequestAndWaitForResponse("/user/login", new RequestAuthenticateDTO(loginUsername.getText(),loginPassword.getText()), BaseResponseDTO.class);
             System.out.println(out.getUserId());
+        });
+        signUpButton.setOnAction(event -> {
+            SuchmeClient client = SuchmeClient.getInstance();
+            BaseResponseDTO out = client.postRequestAndWaitForResponse("/user/create", new RequestCreateUserDTO(createUsername.getText(),createPassword.getText(),createName.getText(),createEmail.getText()), BaseResponseDTO.class);
+            if(!Objects.equals(out.getResponseCode(), "0")){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText(out.getError());
+                alert.showAndWait();
+            }
         });
 
     }

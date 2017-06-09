@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by mohammad on 6/8/17.
@@ -51,11 +50,10 @@ public class UserCatalogue {
         return userRepository.findAll();
     }
 
-    public void addUser(String userName,String password){
-        User user=new User();
-        user.setUserName(userName);
-        user.setPassword(password);
+    public void addUser(String userName,String password,String name,String email){
+        User user=new User(userName,password,name,email);
         user.setCreated(new Date());
+
         userRepository.save(user);
     }
 }
