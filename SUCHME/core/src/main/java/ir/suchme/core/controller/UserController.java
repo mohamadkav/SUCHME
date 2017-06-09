@@ -2,12 +2,12 @@ package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
+import ir.suchme.common.dto.user.RequestCreateUserDTO;
 import ir.suchme.common.dto.user.ResponseUserDTO;
 import ir.suchme.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +43,7 @@ public class UserController {
             responseUserDTO = userService.auth(request,dto);
             LOG.info("Login : Success | Auth: {}", responseUserDTO.getResponseCode());
             return responseUserDTO;
-        } catch (Exception e) {
+        } catch (Exception|AssertionError e) {
             long finishTime = System.currentTimeMillis();
             responseUserDTO.setError(e.getMessage());
             responseUserDTO.setResponseCode("-1");
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping( method = RequestMethod.POST,value = "/create")
-    public BaseResponseDTO create(@RequestBody RequestAuthenticateDTO request) {
+    public BaseResponseDTO create(@RequestBody RequestCreateUserDTO request) {
         long startTime = System.currentTimeMillis();
         BaseResponseDTO baseResponseDTO =new BaseResponseDTO();
         try {
@@ -61,7 +61,7 @@ public class UserController {
             baseResponseDTO = userService.create(request);
             LOG.info("create : Success | Auth: {}", baseResponseDTO.getResponseCode());
             return baseResponseDTO;
-        } catch (Exception e) {
+        } catch (Exception|AssertionError e) {
             long finishTime = System.currentTimeMillis();
             baseResponseDTO.setError(e.getMessage());
             baseResponseDTO.setResponseCode("-1");

@@ -7,10 +7,12 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.suchme.client.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.suchme.client.MainController">
    <children>
+      <Region prefHeight="85.0" prefWidth="1002.0" style="-fx-background-color: aqua;" />
       <Label fx:id="label" layoutX="885.0" layoutY="18.0" prefHeight="42.0" prefWidth="103.0" text="ساچمه">
          <font>
             <Font size="34.0" />
@@ -19,14 +21,14 @@
       <Label layoutX="197.0" layoutY="20.0" prefHeight="25.0" prefWidth="174.0" text="خوش آمدید" />
       <Pane fx:id="primaryPane" layoutX="2.0" layoutY="153.0" prefHeight="424.0" prefWidth="1002.0">
          <children>
-            <fx:include source="account.fxml"></fx:include>
+            <fx:include source="account.fxml" />
          </children>
       </Pane>
-      <MenuBar layoutX="508.0" layoutY="85.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="65.0" prefWidth="496.0">
+      <MenuBar fx:id="menuBar" layoutX="508.0" layoutY="85.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="65.0" prefWidth="496.0">
         <menus>
           <Menu mnemonicParsing="false" text="انبار داری">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="assignMinMaxMenu" mnemonicParsing="false" text="تعیین سقف و کف موجودی" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="گزارش گیری">
