@@ -1,16 +1,15 @@
 package ir.suchme.client;
 
+import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
 import ir.suchme.common.dto.user.RequestCreateUserDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -38,13 +37,7 @@ public class LoginPresenter implements Initializable{
         signUpButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();
             BaseResponseDTO out = client.postRequestAndWaitForResponse("/user/create", new RequestCreateUserDTO(createUsername.getText(),createPassword.getText(),createName.getText(),createEmail.getText()), BaseResponseDTO.class);
-            if(!Objects.equals(out.getResponseCode(), "0")){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText(out.getError());
-                alert.showAndWait();
-            }
+            NotificationUtil.OK(out);
         });
 
     }

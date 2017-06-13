@@ -27,4 +27,11 @@ public class RequestSearchComponentDTO implements RequestDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "RequestSearchComponentDTO{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

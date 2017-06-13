@@ -1,7 +1,7 @@
 package ir.suchme.client.warehouse;
 
 import ir.suchme.client.SuchmeClient;
-import ir.suchme.client.util.ErrorUtil;
+import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.component.ComponentDTO;
 import ir.suchme.common.dto.component.RequestSearchComponentDTO;
@@ -36,7 +36,7 @@ public class MinMaxPresenter  implements Initializable {
         searchButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();
             ResponseSearchComponentDTO out = client.postRequestAndWaitForResponse("/search/component", new RequestSearchComponentDTO(searchField.getText()),ResponseSearchComponentDTO.class);
-            ErrorUtil.check(out);
+            NotificationUtil.check(out);
             ObservableList<ComponentDTO> items= FXCollections.observableArrayList(out.getComponentDTOS());
             resultList.setItems(items);
         });
@@ -45,7 +45,7 @@ public class MinMaxPresenter  implements Initializable {
             BaseResponseDTO out = client.postRequestAndWaitForResponse("/warehouse/updateminmax",
                     new RequestUpdateComponentMinMaxDTO(((ComponentDTO)resultList.getSelectionModel().getSelectedItem()).getId(),
                             Integer.parseInt(minValue.getText()),Integer.parseInt(maxValue.getText())),BaseResponseDTO.class);
-            ErrorUtil.check(out);
+            NotificationUtil.OK(out);
         });
 
         resultList.setOnMouseClicked(event -> {

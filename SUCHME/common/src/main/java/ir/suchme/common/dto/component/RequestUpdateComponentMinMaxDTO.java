@@ -49,4 +49,13 @@ public class RequestUpdateComponentMinMaxDTO implements RequestDTO {
     public void setMaximum(Integer maximum) {
         this.maximum = maximum;
     }
+
+    @Override
+    public String toString() {
+        return "RequestUpdateComponentMinMaxDTO{" +
+                "productId='" + productId + '\'' +
+                ", minimum=" + minimum +
+                ", maximum=" + maximum +
+                '}';
+    }
 }
