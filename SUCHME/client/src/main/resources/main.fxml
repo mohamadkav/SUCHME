@@ -29,6 +29,7 @@
           <Menu mnemonicParsing="false" text="انبار داری">
             <items>
               <MenuItem fx:id="assignMinMaxMenu" mnemonicParsing="false" text="تعیین سقف و کف موجودی" />
+              <MenuItem fx:id="getQuantityMenu" mnemonicParsing="false" text="دریافت موجودی محصولات" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="گزارش گیری">

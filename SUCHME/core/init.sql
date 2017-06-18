@@ -1,0 +1,2 @@
+INSERT INTO t_core_user (c_id, c_created, c_deleted, c_modified, email, name, password, username) VALUES ('9afadebf-7414-41cf-b106-1f75fc2ea58e', '2017-06-09 02:50:34.906', false, '2017-06-09 02:50:34.906', '1234', 'mohammad', '1234', 'mohi');
+INSERT INTO product (c_id, c_created, c_deleted, c_modified, description, name, price, product_type, quantity) VALUES ('2754d093-3449-48f7-84bf-419bdd536edf', NULL, false, NULL, NULL, 'qwer', 100, 'FINAL', 10);

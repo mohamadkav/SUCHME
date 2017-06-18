@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by mohammad on 2017-06-13.
  */
 @Entity
-@Table(name = "T_CORE_USER_ACTIVITY")
+@Table(name = "USER_ACTIVITY")
 public class UserActivity extends BaseEntity{
     @Column
     private String component;

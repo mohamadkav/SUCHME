@@ -7,6 +7,6 @@ import javax.persistence.Table;
  * Created by mohammad on 6/9/17.
  */
 @Entity
-@Table(name = "T_EMPLOYEE")
+@Table(name = "EMPLOYEE")
 public class Employee extends User{
 }

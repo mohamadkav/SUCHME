@@ -27,7 +27,7 @@ public class User extends BaseEntity{
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "T_USER_ROLE", joinColumns = {
+    @JoinTable(name = "USER_ROLE", joinColumns = {
             @JoinColumn(name = "USERID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "ROLEID",
                     nullable = false, updatable = false) })

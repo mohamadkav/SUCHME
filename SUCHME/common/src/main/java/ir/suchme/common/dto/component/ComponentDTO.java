@@ -6,7 +6,7 @@ package ir.suchme.common.dto.component;
 public class ComponentDTO {
     private String name;
 
-    private Double price;
+    private Integer price;
 
     private Integer maxValue;
 
@@ -17,7 +17,7 @@ public class ComponentDTO {
     public ComponentDTO() {
     }
 
-    public ComponentDTO(String name, Double price, Integer maxValue, Integer minValue, String id) {
+    public ComponentDTO(String name, Integer price, Integer maxValue, Integer minValue, String id) {
         this.name = name;
         this.price = price;
         this.maxValue = maxValue;
@@ -43,11 +43,11 @@ public class ComponentDTO {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

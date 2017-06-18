@@ -2,6 +2,8 @@ package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.component.RequestSearchComponentDTO;
 import ir.suchme.common.dto.component.ResponseSearchComponentDTO;
+import ir.suchme.common.dto.product.RequestSearchProductDTO;
+import ir.suchme.common.dto.product.ResponseSearchProductDTO;
 import ir.suchme.core.service.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,23 @@ public class SearchController {
         try {
             dto.validation();
             response = searchService.searchComponent(dto);
+            LOG.info("search : Success | Code: {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("search : Failed | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+    @RequestMapping( method = RequestMethod.POST,value = "/product")
+    public ResponseSearchProductDTO searchProduct(@RequestBody RequestSearchProductDTO dto) {
+        long startTime = System.currentTimeMillis();
+        ResponseSearchProductDTO response =new ResponseSearchProductDTO();
+        try {
+            dto.validation();
+            response = searchService.searchProduct(dto);
             LOG.info("search : Success | Code: {}", response.getResponseCode());
             return response;
         } catch (Exception|AssertionError e) {

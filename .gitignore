@@ -7,3 +7,4 @@ out/
 gen/
 classes/
 build/
+.DS_Store/

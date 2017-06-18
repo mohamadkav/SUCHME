@@ -10,13 +10,13 @@ import javax.persistence.Table;
  * Created by mohammad on 6/9/17.
  */
 @Entity
-@Table(name = "T_CORE_COMPONENT")
+@Table(name = "COMPONENT")
 public class Component extends BaseEntity {
     @Column
     private String name;
 
     @Column
-    private Double price;
+    private Integer price;
 
     @Column
     private Integer minValue;
@@ -32,11 +32,11 @@ public class Component extends BaseEntity {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
