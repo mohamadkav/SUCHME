@@ -4,6 +4,7 @@ import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
 import ir.suchme.common.dto.user.RequestCreateUserDTO;
 import ir.suchme.common.dto.user.ResponseUserDTO;
+import ir.suchme.core.catalogue.CustomerCatalogue;
 import ir.suchme.core.catalogue.UserCatalogue;
 import ir.suchme.core.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 public class UserService {
 
     private final UserCatalogue userCatalogue;
+    private final CustomerCatalogue customerCatalogue;
     @Autowired
-    public UserService(UserCatalogue userCatalogue) {
+    public UserService(UserCatalogue userCatalogue, CustomerCatalogue customerCatalogue) {
         this.userCatalogue=userCatalogue;
+        this.customerCatalogue = customerCatalogue;
     }
 
     public ResponseUserDTO auth(HttpServletRequest httpServletRequest, RequestAuthenticateDTO request) throws Exception {
@@ -39,7 +42,7 @@ public class UserService {
     public BaseResponseDTO create(RequestCreateUserDTO request){
         if(userCatalogue.findUser(request.getUserName())!=null)
             return new BaseResponseDTO("User already exists","400",null);
-        userCatalogue.addUser(request.getUserName(),request.getPassword(),request.getName(),request.getEmail());
+         customerCatalogue.addCustomer(request.getUserName(),request.getPassword(),request.getName(),request.getEmail());
         return new BaseResponseDTO(null,"0",null);
     }
 

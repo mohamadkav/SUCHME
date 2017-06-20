@@ -1,6 +1,7 @@
-package ir.suchme.client;
+package ir.suchme.client.main;
 
 import ir.suchme.client.util.NotificationUtil;
+import ir.suchme.client.util.SuchmeClient;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.RequestAuthenticateDTO;
 import ir.suchme.common.dto.user.RequestCreateUserDTO;
@@ -32,7 +33,7 @@ public class LoginPresenter implements Initializable{
         loginButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();
             BaseResponseDTO out = client.postRequestAndWaitForResponse("/user/login", new RequestAuthenticateDTO(loginUsername.getText(),loginPassword.getText()), BaseResponseDTO.class);
-            System.out.println(out.getUserId());
+            NotificationUtil.OK(out);
         });
         signUpButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();

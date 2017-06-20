@@ -50,10 +50,4 @@ public class UserCatalogue {
         return userRepository.findAll();
     }
 
-    public void addUser(String userName,String password,String name,String email){
-        User user=new User(userName,password,name,email);
-        user.setCreated(new Date());
-
-        userRepository.save(user);
-    }
 }

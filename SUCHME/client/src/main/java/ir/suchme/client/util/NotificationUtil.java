@@ -12,7 +12,7 @@ public class NotificationUtil {
 
     public static boolean check(BaseResponseDTO responseDTO){
         if(!Objects.equals(responseDTO.getResponseCode(), "0")){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
             alert.setContentText(responseDTO.getError());

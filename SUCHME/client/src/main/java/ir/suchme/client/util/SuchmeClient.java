@@ -1,4 +1,4 @@
-package ir.suchme.client;
+package ir.suchme.client.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;

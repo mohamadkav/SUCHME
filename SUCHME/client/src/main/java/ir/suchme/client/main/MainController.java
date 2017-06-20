@@ -1,4 +1,4 @@
-package ir.suchme.client;
+package ir.suchme.client.main;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

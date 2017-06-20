@@ -1,6 +1,6 @@
 package ir.suchme.client.warehouse;
 
-import ir.suchme.client.SuchmeClient;
+import ir.suchme.client.util.SuchmeClient;
 import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.component.ComponentDTO;

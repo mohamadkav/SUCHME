@@ -17,17 +17,18 @@ public class UserActivity extends BaseEntity{
     @Column
     private String method;
 
-    @Column
-    private String userName;
+    @ManyToOne
+    @JoinColumn(name = "USERID")
+    private User user;
 
     @Column
     private String description;
 
 
-    public UserActivity(String component, String method, String userName, String description) {
+    public UserActivity(String component, String method, User user, String description) {
         this.component = component;
         this.method = method;
-        this.userName = userName;
+        this.user = user;
         this.description = description;
     }
 
@@ -47,12 +48,12 @@ public class UserActivity extends BaseEntity{
         this.method = method;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
