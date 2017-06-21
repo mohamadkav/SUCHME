@@ -2,9 +2,9 @@ package ir.suchme.core.domain.entity;
 
 import ir.suchme.core.domain.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mohammad on 6/9/17.
@@ -23,6 +23,18 @@ public class Component extends BaseEntity {
 
     @Column
     private Integer maxValue;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
+
+
+    @ManyToOne
+    @JoinColumn(name = "PARENT_COMPONENT")
+    public Component parentComponent;
+
+    @OneToMany(mappedBy="parentComponent", cascade = CascadeType.ALL)
+    public Set<Component> subComponents;
 
     public String getName() {
         return name;
