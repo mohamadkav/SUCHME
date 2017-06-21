@@ -1,5 +1,7 @@
 package ir.suchme.common.dto.user;
 
+import java.util.Date;
+
 /**
  * Created by mohammad on 6/21/17.
  */
@@ -14,6 +16,20 @@ public class UserActivityDTO {
     private String userName;
 
     private String name;
+
+    private Date date;
+
+    public UserActivityDTO(String component, String method, String description, String userName, String name, Date date) {
+        this.component = component;
+        this.method = method;
+        this.description = description;
+        this.userName = userName;
+        this.name = name;
+        this.date = date;
+    }
+
+    public UserActivityDTO() {
+    }
 
     public String getComponent() {
         return component;
@@ -53,5 +69,13 @@ public class UserActivityDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

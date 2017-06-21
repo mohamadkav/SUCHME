@@ -34,8 +34,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="گزارش گیری">
             <items>
-                <MenuItem fx:id="customersActivityReport" mnemonicParsing="false" text="گزارش فعالیت مشتریان" />
-                <MenuItem fx:id="employeesActivityReport" mnemonicParsing="false" text="گزارش فعالیت کارمندان" />
+                <MenuItem fx:id="userActivityReport" mnemonicParsing="false" text="گزارش فعالیت کاربران" />
                 <MenuItem fx:id="employeeActivityReport" mnemonicParsing="false" text="گزارش فعالیت کارمند" />
                 <MenuItem fx:id="processReport" mnemonicParsing="false" text="گزارش فرایند" />
                 <MenuItem fx:id="productBalanceReport" mnemonicParsing="false" text="گزارش لیست کلی محصولات" />

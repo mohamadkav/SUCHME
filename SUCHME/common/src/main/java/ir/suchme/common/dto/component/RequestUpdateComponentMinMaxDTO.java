@@ -52,7 +52,7 @@ public class RequestUpdateComponentMinMaxDTO implements RequestDTO {
 
     @Override
     public String toString() {
-        return "RequestUpdateComponentMinMaxDTO{" +
+        return "{" +
                 "productId='" + productId + '\'' +
                 ", minimum=" + minimum +
                 ", maximum=" + maximum +

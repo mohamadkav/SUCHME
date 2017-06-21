@@ -15,7 +15,7 @@ public class RequestSearchProductDTO implements RequestDTO{
 
     @Override
     public String toString() {
-        return "RequestSearchProductDTO{" +
+        return "{" +
                 "name='" + name + '\'' +
                 '}';
     }

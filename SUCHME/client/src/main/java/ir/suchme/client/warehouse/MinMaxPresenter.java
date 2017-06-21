@@ -28,7 +28,7 @@ public class MinMaxPresenter  implements Initializable {
     @FXML private TextField maxValue;
     @FXML private Button searchButton;
     @FXML private Button acceptButton;
-    @FXML private ListView resultList;
+    @FXML private ListView<ComponentDTO> resultList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
