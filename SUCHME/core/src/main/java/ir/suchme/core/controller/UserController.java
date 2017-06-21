@@ -1,9 +1,7 @@
 package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
-import ir.suchme.common.dto.user.RequestAuthenticateDTO;
-import ir.suchme.common.dto.user.RequestCreateUserDTO;
-import ir.suchme.common.dto.user.ResponseUserDTO;
+import ir.suchme.common.dto.user.*;
 import ir.suchme.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +65,24 @@ public class UserController {
             baseResponseDTO.setResponseCode("-1");
             LOG.error("UserController : create | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return baseResponseDTO;
+        }
+    }
+
+    @RequestMapping( method = RequestMethod.POST,value = "/activity")
+    public ResponseUserActivityListDTO activities(@RequestBody RequestUserActivityListDTO request) {
+        long startTime = System.currentTimeMillis();
+        ResponseUserActivityListDTO response =new ResponseUserActivityListDTO();
+        try {
+            request.validation();
+            response = userService.getActivities(request);
+            LOG.info("UserController : activities : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("UserController : activities | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
         }
     }
 

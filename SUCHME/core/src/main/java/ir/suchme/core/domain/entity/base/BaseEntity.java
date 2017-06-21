@@ -15,21 +15,16 @@ public class BaseEntity {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @GeneratedValue(generator="system-uuid")
-    @Column(name = "c_id", unique = true)
-    @Type(type= "org.hibernate.type.PostgresUUIDType")// for postgre
-  //  @Type(type="uuid-char")
+    @Column(name = "id", unique = true)
+    @Type(type= "org.hibernate.type.PostgresUUIDType")
     private UUID id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "c_modified")
-    private Date modified = new Date();
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "c_created")
+    @Column(name = "created")
     private Date created = new Date();
 
 
-    @Column(name = "c_deleted")
+    @Column(name = "deleted")
     private Boolean deleted=false;
 
     public UUID getId() {
@@ -40,13 +35,6 @@ public class BaseEntity {
         this.id = id;
     }
 
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
 
     public Date getCreated() {
         return created;

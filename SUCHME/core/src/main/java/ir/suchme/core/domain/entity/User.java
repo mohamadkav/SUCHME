@@ -10,9 +10,9 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "T_CORE_USER")
+@Table(name = "USERS")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "USER_TYPE")
+//@DiscriminatorColumn(name = "USER_TYPE")
 public class User extends BaseEntity{
     @Column(name = "USERNAME")
     private String userName;

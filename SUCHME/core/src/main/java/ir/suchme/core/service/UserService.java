@@ -1,9 +1,7 @@
 package ir.suchme.core.service;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
-import ir.suchme.common.dto.user.RequestAuthenticateDTO;
-import ir.suchme.common.dto.user.RequestCreateUserDTO;
-import ir.suchme.common.dto.user.ResponseUserDTO;
+import ir.suchme.common.dto.user.*;
 import ir.suchme.core.catalogue.CustomerCatalogue;
 import ir.suchme.core.catalogue.UserCatalogue;
 import ir.suchme.core.domain.entity.User;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohammad on 5/21/17.
@@ -55,5 +54,20 @@ public class UserService {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public ResponseUserActivityListDTO getActivities(RequestUserActivityListDTO request){
+        ResponseUserActivityListDTO res=new ResponseUserActivityListDTO();
+        UserActivityDTO dto=new UserActivityDTO();
+        dto.setComponent("comp");
+        dto.setDescription("desc");
+        dto.setMethod("method");
+        dto.setName("hasan");
+        dto.setUserName("hasan123");
+        List<UserActivityDTO> list=new ArrayList<>();
+        list.add(dto);
+        res.setUserActivityDTOS(list);
+        res.setResponseCode("0");
+        return res;
     }
 }
