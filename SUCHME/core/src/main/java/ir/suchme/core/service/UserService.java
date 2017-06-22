@@ -5,11 +5,15 @@ import ir.suchme.common.dto.user.*;
 import ir.suchme.core.catalogue.CustomerCatalogue;
 import ir.suchme.core.catalogue.UserCatalogue;
 import ir.suchme.core.domain.entity.User;
+import ir.suchme.core.domain.entity.UserActivity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,16 +61,23 @@ public class UserService {
     }
 
     public ResponseUserActivityListDTO getActivities(RequestUserActivityListDTO request){
+        Pageable pageable = new PageRequest(request.getPage(), request.getSize());
+        //Null values need specification. I don't have the time for that. TOF:
+        if(request.getFromDate()==null)
+            request.setFromDate(0L);
+        if(request.getToDate()==null)
+            request.setToDate(new Date().getTime());
+
         ResponseUserActivityListDTO res=new ResponseUserActivityListDTO();
-        UserActivityDTO dto=new UserActivityDTO();
-        dto.setComponent("comp");
-        dto.setDescription("desc");
-        dto.setMethod("method");
-        dto.setName("hasan");
-        dto.setUserName("hasan123");
-        List<UserActivityDTO> list=new ArrayList<>();
-        list.add(dto);
-        res.setUserActivityDTOS(list);
+        List<UserActivity> userActivities=userCatalogue.getUserActivitiesByProperties(new Date(request.getFromDate()),
+                new Date(request.getToDate()),pageable,request.isEmployee(),request.isCustomer());
+        List<UserActivityDTO> userActivityDTOS=new ArrayList<>();
+        for(UserActivity userActivity:userActivities)
+            userActivityDTOS.add(new UserActivityDTO(userActivity.getComponent(),userActivity.getMethod(),userActivity.getDescription(),
+                    userActivity.getUser().getUserName(),userActivity.getUser().getName(),userActivity.getCreated()));
+        res.setUserActivityDTOS(userActivityDTOS);
+        res.setTotalPages(userCatalogue.totalPages(new Date(request.getFromDate()),new Date(request.getToDate()),request.getSize(),
+                request.isEmployee(),request.isCustomer()));
         res.setResponseCode("0");
         return res;
     }

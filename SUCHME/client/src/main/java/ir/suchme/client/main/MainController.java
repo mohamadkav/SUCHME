@@ -23,11 +23,10 @@ public class MainController implements Initializable {
     @FXML private Label label;
     @FXML private Button exit;
     @FXML private MenuBar menuBar;
-    @FXML private MenuItem customersActivityReport;
-    @FXML private MenuItem employeesActivityReport;
+    @FXML private MenuItem userActivityReport;
+    @FXML private MenuItem employeeActivityReport;
     @FXML private MenuItem processReport;
     @FXML private MenuItem productBalanceReport;
-    @FXML private MenuItem employeeActivityReport;
     @FXML private MenuItem assignMinMaxMenu;
     @FXML private MenuItem getQuantityMenu;
 
@@ -37,23 +36,6 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        customersActivityReport.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Parent parent = null;
-                try {
-                    parent = FXMLLoader.load(getClass().getClassLoader().getResource("customers-activity.fxml"));
-                    primaryPane.getChildren().clear();
-                    primaryPane.getChildren().add(parent);
-//                    stage.show();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-        });
 
         employeeActivityReport.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -63,7 +45,6 @@ public class MainController implements Initializable {
                     parent = FXMLLoader.load(getClass().getClassLoader().getResource("employee-activity.fxml"));
                     primaryPane.getChildren().clear();
                     primaryPane.getChildren().add(parent);
-//                    stage.show();
                 }
                 catch (Exception e)
                 {
@@ -71,6 +52,23 @@ public class MainController implements Initializable {
                 }
             }
         });
+
+        userActivityReport.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent parent = null;
+                try {
+                    parent = FXMLLoader.load(getClass().getClassLoader().getResource("user-activity.fxml"));
+                    primaryPane.getChildren().clear();
+                    primaryPane.getChildren().add(parent);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         assignMinMaxMenu.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

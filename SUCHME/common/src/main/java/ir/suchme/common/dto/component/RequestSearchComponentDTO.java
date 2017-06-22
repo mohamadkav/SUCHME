@@ -30,7 +30,7 @@ public class RequestSearchComponentDTO implements RequestDTO {
 
     @Override
     public String toString() {
-        return "RequestSearchComponentDTO{" +
+        return "{" +
                 "name='" + name + '\'' +
                 '}';
     }

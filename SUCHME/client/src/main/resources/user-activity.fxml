@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="576.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.suchme.client.main.LoginPresenter">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="576.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.suchme.client.report.UserActivityPresenter">
    <children>
-      <Button fx:id="loginButton" layoutX="645.0" layoutY="352.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="123.0" text="ورود" />
-      <Separator layoutX="501.0" layoutY="99.0" orientation="VERTICAL" prefHeight="383.0" prefWidth="6.0" />
-      <TextField fx:id="loginUsername" layoutX="626.0" layoutY="179.0" />
-      <Label layoutX="561.0" layoutY="184.0" text="نام کاربری" />
-      <Label layoutX="562.0" layoutY="268.0" text="رمز عبور" />
-      <TextField fx:id="loginPassword" layoutX="619.0" layoutY="263.0" />
-      <TextField fx:id="createUsername" layoutX="162.0" layoutY="171.0" />
-      <TextField fx:id="createPassword" layoutX="162.0" layoutY="228.0" />
-      <TextField fx:id="createName" layoutX="162.0" layoutY="277.0" />
-      <TextField fx:id="createEmail" layoutX="162.0" layoutY="325.0" />
-      <Label layoutX="97.0" layoutY="176.0" text="نام کاربری" />
-      <Label layoutX="101.0" layoutY="233.0" text="رمز عبور" />
-      <Label layoutX="108.0" layoutY="282.0" prefHeight="17.0" prefWidth="24.0" text="نام" />
-      <Label layoutX="110.0" layoutY="330.0" text="ایمیل" />
-      <Button fx:id="signUpButton" layoutX="228.0" layoutY="379.0" mnemonicParsing="false" text="ثبت نام" />
+      <TableView fx:id="table" layoutX="18.0" layoutY="123.0" prefHeight="347.0" prefWidth="647.0">
+        <columns>
+          <TableColumn fx:id="component" prefWidth="100.0" text="ماژول" />
+          <TableColumn fx:id="method" prefWidth="61.0" text="تابع" />
+            <TableColumn fx:id="description" prefWidth="163.0" text="توضیحات" />
+            <TableColumn fx:id="name" prefWidth="68.0" text="نام" />
+            <TableColumn fx:id="userName" prefWidth="102.0" text="نام کاربری" />
+            <TableColumn fx:id="date" prefWidth="152.0" text="زمان" />
+        </columns>
+      </TableView>
+      <DatePicker fx:id="from" layoutX="701.0" layoutY="129.0" />
+      <Label layoutX="915.0" layoutY="134.0" text="از" />
+      <DatePicker fx:id="to" layoutX="701.0" layoutY="200.0" />
+      <Label layoutX="908.0" layoutY="205.0" text="تا" />
+      <CheckBox fx:id="employeesCheckbox" layoutX="756.0" layoutY="264.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="کارمندان" />
+      <CheckBox fx:id="customersCheckbox" layoutX="756.0" layoutY="305.0" mnemonicParsing="false" text="مشتریان" />
+      <Button fx:id="submit" layoutX="738.0" layoutY="416.0" mnemonicParsing="false" text="دریافت گزارش">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="numberPerPage" layoutX="698.0" layoutY="338.0" prefWidth="150.0" />
+      <Label layoutX="868.0" layoutY="343.0" text="تعداد نمایش در هر صفحه" />
+      <ChoiceBox fx:id="page" layoutX="130.0" layoutY="482.0" prefWidth="150.0" />
+      <Label layoutX="84.0" layoutY="487.0" text="صفحه" />
    </children>
 </AnchorPane>

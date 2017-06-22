@@ -35,7 +35,7 @@ public class WarehouseController {
 
     @RequestMapping( method = RequestMethod.POST,value = "/updateminmax")
     public BaseResponseDTO updateMinMax(@RequestBody RequestUpdateComponentMinMaxDTO dto) {
-        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getName(),new Object(){}.getClass().getEnclosingMethod().getName(),dto);
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),dto);
 
         long startTime = System.currentTimeMillis();
         BaseResponseDTO baseResponseDTO =new BaseResponseDTO();

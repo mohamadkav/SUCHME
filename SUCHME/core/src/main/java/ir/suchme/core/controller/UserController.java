@@ -2,10 +2,12 @@ package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.user.*;
+import ir.suchme.core.component.UserLoggingComponent;
 import ir.suchme.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +27,12 @@ public class UserController {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final UserService userService;
+    private final UserLoggingComponent userLoggingComponent;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserLoggingComponent userLoggingComponent) {
         this.userService = userService;
+        this.userLoggingComponent = userLoggingComponent;
     }
 
     @RequestMapping( method = RequestMethod.POST,value = "/login")
@@ -70,6 +74,8 @@ public class UserController {
 
     @RequestMapping( method = RequestMethod.POST,value = "/activity")
     public ResponseUserActivityListDTO activities(@RequestBody RequestUserActivityListDTO request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
+
         long startTime = System.currentTimeMillis();
         ResponseUserActivityListDTO response =new ResponseUserActivityListDTO();
         try {

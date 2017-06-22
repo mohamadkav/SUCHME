@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class ProductQuantityPresenter implements Initializable{
     @FXML private TextField searchField;
     @FXML private Button searchButton;
-    @FXML private ListView resultList;
+    @FXML private ListView<ProductDTO> resultList;
     @FXML private Label name;
     @FXML private Label price;
     @FXML private Label quantity;

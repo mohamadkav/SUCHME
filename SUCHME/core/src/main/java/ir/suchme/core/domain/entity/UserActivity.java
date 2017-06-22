@@ -32,6 +32,9 @@ public class UserActivity extends BaseEntity{
         this.description = description;
     }
 
+    public UserActivity() {
+    }
+
     public String getComponent() {
         return component;
     }
