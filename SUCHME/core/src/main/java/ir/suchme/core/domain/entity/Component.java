@@ -37,8 +37,8 @@ public class Component extends BaseEntity {
     @OneToMany(mappedBy="parentComponent", cascade = CascadeType.ALL)
     public Set<Component> subComponents;
 
-    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
-    private List<Product> products;
+//    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
+//    private List<Product> products;
 
     public String getName() {
         return name;

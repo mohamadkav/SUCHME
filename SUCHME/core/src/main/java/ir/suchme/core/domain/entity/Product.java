@@ -31,12 +31,6 @@ public class Product extends BaseEntity{
     @OneToMany
     private Set<Comment> comments;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USER_ROLE", joinColumns = {
-            @JoinColumn(name = "USERID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "ROLEID",
-                    nullable = false, updatable = false) })
-    private Set<Component> components;
 
     public Product(ProductType productType, Integer price, String description, String name,Integer quantity, Set<Comment> comments) {
         this.productType = productType;
@@ -98,11 +92,11 @@ public class Product extends BaseEntity{
         this.quantity = quantity;
     }
 
-    public Set<Component> getComponents() {
-        return components;
-    }
-
-    public void setComponents(Set<Component> components) {
-        this.components = components;
-    }
+//    public Set<Component> getComponents() {
+//        return components;
+//    }
+//
+//    public void setComponents(Set<Component> components) {
+//        this.components = components;
+//    }
 }
