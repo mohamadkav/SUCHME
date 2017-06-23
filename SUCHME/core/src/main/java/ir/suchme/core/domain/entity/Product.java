@@ -4,6 +4,7 @@ import ir.suchme.core.domain.entity.base.BaseEntity;
 import ir.suchme.core.domain.entity.enums.ProductType;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -30,6 +31,21 @@ public class Product extends BaseEntity{
 
     @OneToMany
     private Set<Comment> comments;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "PRODUCT_COMPONENT", joinColumns = {
+            @JoinColumn(name = "product_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "component_id",
+                    nullable = false, updatable = false) })
+    private Set<Component> components;
+
+
+    @ManyToOne
+    @JoinColumn(name = "PARENT_PRODUCT")
+    public Product parentProduct;
+
+    @OneToMany(mappedBy="parentProduct", cascade = CascadeType.ALL)
+    public Set<Product> subProducts;
 
 
     public Product(ProductType productType, Integer price, String description, String name,Integer quantity, Set<Comment> comments) {
@@ -92,11 +108,49 @@ public class Product extends BaseEntity{
         this.quantity = quantity;
     }
 
-//    public Set<Component> getComponents() {
-//        return components;
-//    }
-//
-//    public void setComponents(Set<Component> components) {
-//        this.components = components;
-//    }
+    public Set<Component> getComponents() {
+        return components;
+    }
+
+    public void setComponents(Set<Component> components) {
+        this.components = components;
+    }
+
+    public Product getParentProduct() {
+        return parentProduct;
+    }
+
+    public void setParentProduct(Product parentProduct) {
+        this.parentProduct = parentProduct;
+    }
+
+    public Set<Product> getSubProducts() {
+        return subProducts;
+    }
+
+    public void setSubProducts(Set<Product> subProducts) {
+        this.subProducts = subProducts;
+    }
+
+    public HashSet<Supplier> getAllSuppliers()
+    {
+        HashSet<Supplier> suppliers = new HashSet<>();
+        for (Component component : getComponents())
+        {
+            suppliers.add(component.getSupplier());
+        }
+        return suppliers;
+    }
+
+    public boolean isSimilarTo(Product product)
+    {
+        if(this.getComponents().equals(product.getComponents()))
+        {
+            if (this.getAllSuppliers().equals(product.getAllSuppliers()))
+                return true;
+            else return false;
+        }
+        else
+            return false;
+    }
 }

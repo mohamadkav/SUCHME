@@ -30,12 +30,7 @@ public class Component extends BaseEntity {
     private Supplier supplier;
 
 
-    @ManyToOne
-    @JoinColumn(name = "PARENT_COMPONENT")
-    public Component parentComponent;
 
-    @OneToMany(mappedBy="parentComponent", cascade = CascadeType.ALL)
-    public Set<Component> subComponents;
 
 //    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
 //    private List<Product> products;
@@ -71,4 +66,13 @@ public class Component extends BaseEntity {
     public void setMaxValue(Integer maxValue) {
         this.maxValue = maxValue;
     }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
 }

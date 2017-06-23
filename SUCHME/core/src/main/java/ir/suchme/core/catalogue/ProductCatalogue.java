@@ -5,7 +5,9 @@ import ir.suchme.core.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mohammad on 6/18/17.
@@ -23,9 +25,14 @@ public class ProductCatalogue {
         return productRepository.findAllByNameLike(name);
     }
 
-    public List<Product> findSimilarProducts(Product product)
+    public Set<Product> findSimilarProducts(Product product)
     {
-        return null;
-//        for(ir.suchme.core.domain.entity.Component component : product.get)
+        HashSet<Product> out = new HashSet<>();
+        for(Product p : productRepository.findAll())
+        {
+            if(p.isSimilarTo(product) && !p.equals(product))
+                out.add(p);
+        }
+        return out;
     }
 }
