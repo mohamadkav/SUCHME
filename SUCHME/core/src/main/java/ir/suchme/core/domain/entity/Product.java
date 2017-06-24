@@ -42,10 +42,23 @@ public class Product extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "PARENT_PRODUCT")
-    public Product parentProduct;
+    private Product parentProduct;
 
     @OneToMany(mappedBy="parentProduct", cascade = CascadeType.ALL)
-    public Set<Product> subProducts;
+    private Set<Product> subProducts;
+
+
+    public Product(ProductType productType, Integer price, String description, String name, Integer quantity, Set<Comment> comments, Set<Component> components, Product parentProduct, Set<Product> subProducts) {
+        this.productType = productType;
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity;
+        this.comments = comments;
+        this.components = components;
+        this.parentProduct = parentProduct;
+        this.subProducts = subProducts;
+    }
 
 
     public Product(ProductType productType, Integer price, String description, String name,Integer quantity, Set<Comment> comments) {
@@ -144,13 +157,8 @@ public class Product extends BaseEntity{
 
     public boolean isSimilarTo(Product product)
     {
-        if(this.getComponents().equals(product.getComponents()))
-        {
-            if (this.getAllSuppliers().equals(product.getAllSuppliers()))
-                return true;
-            else return false;
-        }
-        else
-            return false;
+        if (this.getAllSuppliers().equals(product.getAllSuppliers()))
+            return true;
+        else return false;
     }
 }

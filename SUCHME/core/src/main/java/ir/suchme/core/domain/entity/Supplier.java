@@ -24,6 +24,9 @@ public class Supplier extends BaseEntity {
         components = new HashSet<>();
     }
 
+    public Supplier() {
+    }
+
     public String getName() {
         return name;
     }

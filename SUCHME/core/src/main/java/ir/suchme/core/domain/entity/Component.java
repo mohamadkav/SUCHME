@@ -29,8 +29,8 @@ public class Component extends BaseEntity {
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
-
-
+    public Component() {
+    }
 
 //    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
 //    private List<Product> products;

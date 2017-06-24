@@ -1,6 +1,8 @@
 package ir.suchme.core.controller.base;
 
+import ir.suchme.core.domain.repository.ComponentRepository;
 import ir.suchme.core.domain.repository.ProductRepository;
+import ir.suchme.core.domain.repository.SupplierRepository;
 import ir.suchme.core.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,6 +26,12 @@ public class BaseControllerTest {
 
     @MockBean
     protected ProductRepository productRepository;
+
+    @MockBean
+    protected SupplierRepository supplierRepository;
+
+    @MockBean
+    protected ComponentRepository componentRepository;
 
     @Autowired
     protected TestRestTemplate restTemplate;

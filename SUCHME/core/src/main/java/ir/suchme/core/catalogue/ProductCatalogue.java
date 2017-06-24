@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by mohammad on 6/18/17.
@@ -23,6 +24,11 @@ public class ProductCatalogue {
 
     public Iterable<Product> search(String name){
         return productRepository.findAllByNameLike(name);
+    }
+
+    public Product findById(String id)
+    {
+        return productRepository.findOne(UUID.fromString(id));
     }
 
     public Set<Product> findSimilarProducts(Product product)

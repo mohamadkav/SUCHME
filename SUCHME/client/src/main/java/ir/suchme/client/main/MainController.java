@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -27,6 +24,7 @@ public class MainController implements Initializable {
     @FXML private MenuItem employeeActivityReport;
     @FXML private MenuItem processReport;
     @FXML private MenuItem productBalanceReport;
+    @FXML private MenuItem predictPriceAndDeliveryTime;
     @FXML private MenuItem assignMinMaxMenu;
     @FXML private MenuItem getQuantityMenu;
 
@@ -35,6 +33,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
 
 
         employeeActivityReport.setOnAction(new EventHandler<ActionEvent>() {
@@ -90,6 +89,22 @@ public class MainController implements Initializable {
                 Parent parent = null;
                 try {
                     parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-quantity.fxml"));
+                    primaryPane.getChildren().clear();
+                    primaryPane.getChildren().add(parent);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        predictPriceAndDeliveryTime.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent parent = null;
+                try {
+                    parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-prediction.fxml"));
                     primaryPane.getChildren().clear();
                     primaryPane.getChildren().add(parent);
                 }
