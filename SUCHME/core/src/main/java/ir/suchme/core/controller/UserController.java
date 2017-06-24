@@ -98,10 +98,4 @@ public class UserController {
         BaseResponseDTO baseResponseDTO =new BaseResponseDTO();
         return userService.list();
     }
-
-
-    @RequestMapping(method = RequestMethod.GET,value = "/test")
-    public String test() {
-        return "OK";
-    }
 }

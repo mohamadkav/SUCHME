@@ -22,7 +22,7 @@ public class ClientApplication extends Application {
 
         Scene scene = new Scene(root, 1002, 756);
 
-        primaryStage.setTitle("SUpply CHange Management system (SUCHME)");
+        primaryStage.setTitle("SUpply CHain Management system (SUCHME)");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
