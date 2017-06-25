@@ -5,7 +5,7 @@ import ir.suchme.core.domain.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by Farzin on 6/21/2017.
@@ -21,10 +21,10 @@ public class SupplierCatalogue {
         this.supplierRepository = supplierRepository;
     }
 
-    public void addSupplier(String name)
+    public Supplier addSupplier(String name)
     {
         Supplier supplier = new Supplier(name);
-        supplierRepository.save(supplier);
+        return supplierRepository.save(supplier);
     }
 
     public Supplier findSupplier(String name)
@@ -32,9 +32,20 @@ public class SupplierCatalogue {
         return supplierRepository.findFirstByName(name);
     }
 
+    public Supplier findOne(String uuid)
+    {
+        return supplierRepository.findOne(UUID.fromString(uuid));
+    }
+
     public Iterable<Supplier> findAll(){
 
         return supplierRepository.findAll();
+    }
+
+    public Iterable<Supplier> search(String name){
+        if(name==null||name.isEmpty())
+            return supplierRepository.findAll();
+        return supplierRepository.findAllByNameLike(name);
     }
 
     public void deleteSupplier(Supplier supplier)

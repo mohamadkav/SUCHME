@@ -4,6 +4,8 @@ import ir.suchme.common.dto.component.RequestSearchComponentDTO;
 import ir.suchme.common.dto.component.ResponseSearchComponentDTO;
 import ir.suchme.common.dto.product.RequestSearchProductDTO;
 import ir.suchme.common.dto.product.ResponseSearchProductDTO;
+import ir.suchme.common.dto.supplier.RequestSearchSupplierDTO;
+import ir.suchme.common.dto.supplier.ResponseSearchSupplierDTO;
 import ir.suchme.core.component.UserLoggingComponent;
 import ir.suchme.core.service.SearchService;
 import org.slf4j.Logger;
@@ -63,6 +65,25 @@ public class SearchController {
         try {
             dto.validation();
             response = searchService.searchProduct(dto);
+            LOG.info("search : Success | Code: {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("search : Failed | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+
+    @RequestMapping( method = RequestMethod.POST,value = "/supplier")
+    public ResponseSearchSupplierDTO searchSupplier(@RequestBody RequestSearchSupplierDTO dto) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),dto);
+        long startTime = System.currentTimeMillis();
+        ResponseSearchSupplierDTO response =new ResponseSearchSupplierDTO();
+        try {
+            dto.validation();
+            response = searchService.searchSupplier(dto);
             LOG.info("search : Success | Code: {}", response.getResponseCode());
             return response;
         } catch (Exception|AssertionError e) {

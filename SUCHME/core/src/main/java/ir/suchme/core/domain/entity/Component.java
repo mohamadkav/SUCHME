@@ -32,7 +32,15 @@ public class Component extends BaseEntity {
     public Component() {
     }
 
-//    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
+    public Component(String name, Integer price, Integer minValue, Integer maxValue, Supplier supplier) {
+        this.name = name;
+        this.price = price;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.supplier = supplier;
+    }
+
+    //    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
 //    private List<Product> products;
 
     public String getName() {

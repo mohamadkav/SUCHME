@@ -6,10 +6,15 @@ import ir.suchme.common.dto.component.ResponseSearchComponentDTO;
 import ir.suchme.common.dto.product.ProductDTO;
 import ir.suchme.common.dto.product.RequestSearchProductDTO;
 import ir.suchme.common.dto.product.ResponseSearchProductDTO;
+import ir.suchme.common.dto.supplier.RequestSearchSupplierDTO;
+import ir.suchme.common.dto.supplier.ResponseSearchSupplierDTO;
+import ir.suchme.common.dto.supplier.SupplierDTO;
 import ir.suchme.core.catalogue.ComponentCatalogue;
 import ir.suchme.core.catalogue.ProductCatalogue;
+import ir.suchme.core.catalogue.SupplierCatalogue;
 import ir.suchme.core.domain.entity.Component;
 import ir.suchme.core.domain.entity.Product;
+import ir.suchme.core.domain.entity.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +32,13 @@ public class SearchService {
 
     private final ProductCatalogue productCatalogue;
 
+    private final SupplierCatalogue supplierCatalogue;
+
     @Autowired
-    public SearchService(ComponentCatalogue componentCatalogue,ProductCatalogue productCatalogue) {
+    public SearchService(ComponentCatalogue componentCatalogue, ProductCatalogue productCatalogue, SupplierCatalogue supplierCatalogue) {
         this.componentCatalogue = componentCatalogue;
         this.productCatalogue=productCatalogue;
+        this.supplierCatalogue = supplierCatalogue;
     }
 
     public ResponseSearchComponentDTO searchComponent(RequestSearchComponentDTO request){
@@ -45,5 +53,12 @@ public class SearchService {
         for(Product product:productCatalogue.search(request.getName()))
             productDTOS.add(new ProductDTO(product.getId().toString(),product.getPrice(),product.getName(),product.getQuantity()));
         return new ResponseSearchProductDTO(null,"0",null,productDTOS);
+    }
+
+    public ResponseSearchSupplierDTO searchSupplier(RequestSearchSupplierDTO request){
+        List<SupplierDTO> supplierDTOS=new ArrayList<>();
+        for(Supplier supplier:supplierCatalogue.search(request.getName()))
+            supplierDTOS.add(new SupplierDTO(supplier.getId().toString(),supplier.getName()));
+        return new ResponseSearchSupplierDTO(null,"0",null,supplierDTOS);
     }
 }

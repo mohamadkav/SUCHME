@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "SUPPLIER")
 public class Supplier extends BaseEntity {
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier", cascade = CascadeType.ALL)
