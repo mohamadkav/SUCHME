@@ -21,6 +21,8 @@ public class ComponentCatalogue {
 
 
     public Iterable<ir.suchme.core.domain.entity.Component> search(String name){
+        if(name==null||name.trim().isEmpty())
+            return componentRepository.findAll();
         return componentRepository.findAllByNameLike(name);
     }
 

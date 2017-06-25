@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("predict")
-@Secured({"role", ""})
 public class PredictionController {
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());

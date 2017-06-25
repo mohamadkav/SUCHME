@@ -21,7 +21,7 @@ public class RequestPredictionDTO implements RequestDTO{
 
     @Override
     public String toString() {
-        return "RequestPredictionDTO{" +
+        return "{" +
                 "name='" + name + '\'' +
                 '}';
     }

@@ -26,13 +26,13 @@
       </Pane>
       <MenuBar fx:id="menuBar" layoutX="508.0" layoutY="85.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="65.0" prefWidth="496.0">
         <menus>
-          <Menu mnemonicParsing="false" text="انبار داری" disable="true">
+          <Menu mnemonicParsing="false" text="انبار داری" >
             <items>
               <MenuItem fx:id="assignMinMaxMenu" mnemonicParsing="false" text="تعیین سقف و کف موجودی" />
               <MenuItem fx:id="getQuantityMenu" mnemonicParsing="false" text="دریافت موجودی محصولات" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="گزارش گیری" disable="true">
+          <Menu mnemonicParsing="false" text="گزارش گیری" >
             <items>
                 <MenuItem fx:id="userActivityReport" mnemonicParsing="false" text="گزارش فعالیت کاربران" />
                 <MenuItem fx:id="employeeActivityReport" mnemonicParsing="false" text="گزارش فعالیت کارمند" />
@@ -40,16 +40,16 @@
                 <MenuItem fx:id="productBalanceReport" mnemonicParsing="false" text="گزارش لیست کلی محصولات" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="پیش بینی" disable="true">
+          <Menu mnemonicParsing="false" text="پیش بینی" >
             <items>
                 <MenuItem fx:id="predictPriceAndDeliveryTime" mnemonicParsing="false" text="پیش بینی قیمت و زمان تحویل" />
-                <MenuItem mnemonicParsing="false" text="پیش بینی حداقل و حداکثر موجودی" disable="true" />
+                <MenuItem mnemonicParsing="false" text="پیش بینی حداقل و حداکثر موجودی"  />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="سفارش و تامین" disable="true">
+            <Menu mnemonicParsing="false" text="سفارش و تامین" >
               <items>
                 <MenuItem mnemonicParsing="false" text="سفارش کالا" />
-                  <MenuItem mnemonicParsing="false" text="سفارش مولفه جدید" />
+                  <MenuItem mnemonicParsing="false" fx:id="orderComponent" text="سفارش مولفه جدید" />
               </items>
             </Menu>
         </menus>

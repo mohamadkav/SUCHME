@@ -14,15 +14,18 @@ public class ComponentDTO {
 
     private String id;
 
+    private String supplierName;
+
     public ComponentDTO() {
     }
 
-    public ComponentDTO(String name, Integer price, Integer maxValue, Integer minValue, String id) {
+    public ComponentDTO(String name, Integer price, Integer maxValue, Integer minValue, String id, String supplierName) {
         this.name = name;
         this.price = price;
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.id = id;
+        this.supplierName = supplierName;
     }
 
     @Override
@@ -73,5 +76,13 @@ public class ComponentDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 }

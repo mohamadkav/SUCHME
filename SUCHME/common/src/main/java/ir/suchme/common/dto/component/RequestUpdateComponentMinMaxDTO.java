@@ -1,6 +1,9 @@
 package ir.suchme.common.dto.component;
 
 import ir.suchme.common.dto.base.RequestDTO;
+import org.assertj.core.api.Assertions;
+
+import java.util.UUID;
 
 /**
  * Created by mohammad on 6/9/17.
@@ -15,6 +18,12 @@ public class RequestUpdateComponentMinMaxDTO implements RequestDTO {
 
     @Override
     public void validation() {
+        Assertions.assertThat(productId).isNotNull();
+        try{
+            UUID.fromString(productId);
+        }catch (Exception e){
+            throw new AssertionError("componentId is not a UUID",e);
+        }
     }
 
     public RequestUpdateComponentMinMaxDTO(String productId, Integer minimum, Integer maximum) {

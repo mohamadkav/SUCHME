@@ -27,6 +27,7 @@ public class MainController implements Initializable {
     @FXML private MenuItem predictPriceAndDeliveryTime;
     @FXML private MenuItem assignMinMaxMenu;
     @FXML private MenuItem getQuantityMenu;
+    @FXML private MenuItem orderComponent;
 
 
 
@@ -105,6 +106,21 @@ public class MainController implements Initializable {
                 Parent parent = null;
                 try {
                     parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-prediction.fxml"));
+                    primaryPane.getChildren().clear();
+                    primaryPane.getChildren().add(parent);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        orderComponent.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent parent = null;
+                try {
+                    parent = FXMLLoader.load(getClass().getClassLoader().getResource("order-component.fxml"));
                     primaryPane.getChildren().clear();
                     primaryPane.getChildren().add(parent);
                 }
