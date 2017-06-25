@@ -5,6 +5,7 @@ import ir.suchme.common.dto.order.RequestOrderComponentDTO;
 import ir.suchme.core.catalogue.ComponentCatalogue;
 import ir.suchme.core.catalogue.OrderCatalogue;
 import ir.suchme.core.catalogue.SupplierCatalogue;
+import ir.suchme.core.domain.entity.Component;
 import ir.suchme.core.domain.entity.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,25 +31,26 @@ public class OrderService {
     }
 
     public BaseResponseDTO orderComponent(RequestOrderComponentDTO request){
+        Component component;
+
         if(request.getComponentName()==null) {
             if (componentCatalogue.findOne(request.getComponentId()) == null)
                 return new BaseResponseDTO("Component not found", "-100", null);
-            orderCatalogue.orderComponent(componentCatalogue.findOne(request.getComponentId()), request.getQuantity());
-            return new BaseResponseDTO(null, "0", null);
+            component=componentCatalogue.findOne(request.getComponentId());
         }
         else if(request.getSupplierId()!=null){
             if (supplierCatalogue.findOne(request.getSupplierId()) == null)
                 return new BaseResponseDTO("Supplier not found", "-100", null);
-            orderCatalogue.orderNewComponent(request.getComponentName(),request.getPrice(),request.getQuantity(),
+            component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null,
                     supplierCatalogue.findOne(request.getSupplierId()));
-            return new BaseResponseDTO(null, "0", null);
         }
         else if(request.getSupplierName()!=null){
            Supplier supplier= supplierCatalogue.addSupplier(request.getSupplierName());
-            orderCatalogue.orderNewComponent(request.getComponentName(),request.getPrice(),request.getQuantity(), supplier);
-            return new BaseResponseDTO(null, "0", null);
+           component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null,supplier);
         }
         else
             return new BaseResponseDTO("Invalid Operation", "-100", null);
+        orderCatalogue.orderComponent(component, request.getQuantity());
+        return new BaseResponseDTO(null, "0", null);
     }
 }

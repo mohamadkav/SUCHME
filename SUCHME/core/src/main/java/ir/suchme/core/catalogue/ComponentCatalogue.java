@@ -1,5 +1,6 @@
 package ir.suchme.core.catalogue;
 
+import ir.suchme.core.domain.entity.Supplier;
 import ir.suchme.core.domain.repository.ComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,5 +38,9 @@ public class ComponentCatalogue {
     public void updateMin(ir.suchme.core.domain.entity.Component component,Integer min){
         component.setMinValue(min);
         componentRepository.save(component);
+    }
+
+    public ir.suchme.core.domain.entity.Component create(String name, Integer price, Integer minValue, Integer maxValue, Supplier supplier){
+        return componentRepository.save(new ir.suchme.core.domain.entity.Component(name,price,minValue,maxValue,supplier));
     }
 }

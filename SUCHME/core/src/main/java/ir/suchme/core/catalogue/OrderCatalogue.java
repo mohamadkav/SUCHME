@@ -18,23 +18,13 @@ public class OrderCatalogue {
 
     private final ComponentOrderRepository componentOrderRepository;
 
-    private final ComponentRepository componentRepository;
-
     @Autowired
-    public OrderCatalogue(ComponentOrderRepository componentOrderRepository, ComponentRepository componentRepository) {
+    public OrderCatalogue(ComponentOrderRepository componentOrderRepository) {
         this.componentOrderRepository = componentOrderRepository;
-        this.componentRepository = componentRepository;
     }
 
 
     public void orderComponent(ir.suchme.core.domain.entity.Component component,Integer quantity){
-        ComponentOrder componentOrder=new ComponentOrder(component,new Date(),quantity);
-        componentOrderRepository.save(componentOrder);
-    }
-    public void orderNewComponent(String componentName,Integer price,Integer quantity, Supplier supplier){
-        ir.suchme.core.domain.entity.Component component=new ir.suchme.core.domain.entity.Component(
-                componentName,price,null,null,supplier);
-        componentRepository.save(component);
         ComponentOrder componentOrder=new ComponentOrder(component,new Date(),quantity);
         componentOrderRepository.save(componentOrder);
     }
