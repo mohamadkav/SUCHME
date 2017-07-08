@@ -46,6 +46,8 @@
       <ChoiceBox fx:id="selectedSupplierName" layoutX="734.0" layoutY="380.0" prefWidth="150.0" />
       <TextField fx:id="newSupplierName" layoutX="728.0" layoutY="420.0" visible="false" />
       <TextField fx:id="newComponentPrice" layoutX="359.0" layoutY="434.0" />
-      <Label layoutX="304.0" layoutY="439.0" text="قیمت مولفه" />
+      <Label layoutX="281.0" layoutY="438.0" text="قیمت مولفه" />
+      <TextField fx:id="timeToBuild" layoutX="360.0" layoutY="476.0" prefWidth="74.0" />
+      <Label layoutX="185.0" layoutY="480.0" text="روزهای مورد نیاز برای تولید مولفه" />
    </children>
 </AnchorPane>

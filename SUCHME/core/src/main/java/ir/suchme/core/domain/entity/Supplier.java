@@ -16,12 +16,12 @@ public class Supplier extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier", cascade = CascadeType.ALL)
-    private Set<Component> components;
+    @OneToMany(mappedBy="supplier", targetEntity=SupplyComponent.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<SupplyComponent> supplyComponents;
+
 
     public Supplier(String name) {
         this.name = name;
-        components = new HashSet<>();
     }
 
     public Supplier() {
@@ -31,25 +31,19 @@ public class Supplier extends BaseEntity {
         return name;
     }
 
-    public Set<Component> getComponents() {
-        return components;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setComponents(Set<Component> components) {
-        this.components = components;
+    public Set<SupplyComponent> getSupplyComponents() {
+        return supplyComponents;
     }
 
-    public void addComponent(Component component)
-    {
-        this.components.add(component);
+    public void setSupplyComponents(Set<SupplyComponent> supplyComponents) {
+        this.supplyComponents = supplyComponents;
     }
 
-    public void addComponents(Set<Component> components)
-    {
-        this.components.addAll(components);
+    public void addToSupplyComponents(SupplyComponent supplyComponent) {
+        this.supplyComponents.add(supplyComponent);
     }
 }

@@ -39,6 +39,8 @@ public class OrderComponentPresenter implements Initializable {
     @FXML private ChoiceBox<SupplierDTO> selectedSupplierName;
     @FXML private TextField newSupplierName;
     @FXML private TextField newComponentPrice;
+    @FXML private TextField timeToBuild;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,7 +67,7 @@ public class OrderComponentPresenter implements Initializable {
                     ,createNewSupplier.isSelected()?newSupplierName.getText():null
                     ,componentNameBox.getText()
                     ,Integer.parseInt(newComponentPrice.getText())
-                    ,Integer.parseInt(numOfValues.getText())
+                    ,Integer.parseInt(numOfValues.getText()),Integer.parseInt(timeToBuild.getText())
             ), BaseResponseDTO.class);
             NotificationUtil.OK(out);
         });
@@ -77,7 +79,13 @@ public class OrderComponentPresenter implements Initializable {
         });
         newComponentPrice.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                numOfValues.setText(newValue.replaceAll("[^\\d]", ""));
+                newComponentPrice.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        timeToBuild.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                timeToBuild.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 

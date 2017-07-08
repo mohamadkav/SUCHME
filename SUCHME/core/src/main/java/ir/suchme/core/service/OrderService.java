@@ -42,11 +42,12 @@ public class OrderService {
             if (supplierCatalogue.findOne(request.getSupplierId()) == null)
                 return new BaseResponseDTO("Supplier not found", "-100", null);
             component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null,
-                    supplierCatalogue.findOne(request.getSupplierId()));
+                    supplierCatalogue.findOne(request.getSupplierId()),request.getTimeToSupply());
         }
         else if(request.getSupplierName()!=null){
            Supplier supplier= supplierCatalogue.addSupplier(request.getSupplierName());
-           component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null,supplier);
+           component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null,
+                   supplier,request.getTimeToSupply());
         }
         else
             return new BaseResponseDTO("Invalid Operation", "-100", null);

@@ -32,12 +32,15 @@ public class Product extends BaseEntity{
     @OneToMany
     private Set<Comment> comments;
 
+    @OneToMany
+    private Set<Process> processes;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "PRODUCT_COMPONENT", joinColumns = {
-            @JoinColumn(name = "product_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "component_id",
+            @JoinColumn(name = "product_id", nullable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "component_supply_id",
                     nullable = false, updatable = false) })
-    private Set<Component> components;
+    private Set<SupplyComponent> supplyComponents;
 
 
     @ManyToOne
@@ -48,27 +51,7 @@ public class Product extends BaseEntity{
     private Set<Product> subProducts;
 
 
-    public Product(ProductType productType, Integer price, String description, String name, Integer quantity, Set<Comment> comments, Set<Component> components, Product parentProduct, Set<Product> subProducts) {
-        this.productType = productType;
-        this.price = price;
-        this.description = description;
-        this.name = name;
-        this.quantity = quantity;
-        this.comments = comments;
-        this.components = components;
-        this.parentProduct = parentProduct;
-        this.subProducts = subProducts;
-    }
 
-
-    public Product(ProductType productType, Integer price, String description, String name,Integer quantity, Set<Comment> comments) {
-        this.productType = productType;
-        this.price = price;
-        this.description = description;
-        this.name = name;
-        this.comments = comments;
-        this.quantity=quantity;
-    }
 
     public Product() {
     }
@@ -121,14 +104,6 @@ public class Product extends BaseEntity{
         this.quantity = quantity;
     }
 
-    public Set<Component> getComponents() {
-        return components;
-    }
-
-    public void setComponents(Set<Component> components) {
-        this.components = components;
-    }
-
     public Product getParentProduct() {
         return parentProduct;
     }
@@ -145,12 +120,20 @@ public class Product extends BaseEntity{
         this.subProducts = subProducts;
     }
 
+    public Set<SupplyComponent> getSupplyComponents() {
+        return supplyComponents;
+    }
+
+    public void setSupplyComponents(Set<SupplyComponent> supplyComponents) {
+        this.supplyComponents = supplyComponents;
+    }
+
     public HashSet<Supplier> getAllSuppliers()
     {
         HashSet<Supplier> suppliers = new HashSet<>();
-        for (Component component : getComponents())
+        for (SupplyComponent supplyComponent : getSupplyComponents())
         {
-            suppliers.add(component.getSupplier());
+            suppliers.add(supplyComponent.getSupplier());
         }
         return suppliers;
     }

@@ -3,8 +3,6 @@ package ir.suchme.core.domain.entity;
 import ir.suchme.core.domain.entity.base.BaseEntity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,27 +15,23 @@ public class Component extends BaseEntity {
     private String name;
 
     @Column
-    private Integer price;
-
-    @Column
     private Integer minValue;
 
     @Column
     private Integer maxValue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id", nullable = false)
-    private Supplier supplier;
+
+    @OneToMany(mappedBy="component", targetEntity=SupplyComponent.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<SupplyComponent> supplyComponents;
 
     public Component() {
     }
 
-    public Component(String name, Integer price, Integer minValue, Integer maxValue, Supplier supplier) {
+    public Component(String name, Integer minValue, Integer maxValue, Set<SupplyComponent> supplyComponents) {
         this.name = name;
-        this.price = price;
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.supplier = supplier;
+        this.supplyComponents = supplyComponents;
     }
 
     //    @ManyToMany(mappedBy = "components", fetch = FetchType.LAZY)
@@ -49,14 +43,6 @@ public class Component extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public Integer getMinValue() {
@@ -75,12 +61,11 @@ public class Component extends BaseEntity {
         this.maxValue = maxValue;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public Set<SupplyComponent> getSupplyComponents() {
+        return supplyComponents;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setSupplyComponents(Set<SupplyComponent> supplyComponents) {
+        this.supplyComponents = supplyComponents;
     }
-
 }

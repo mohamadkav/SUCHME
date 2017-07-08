@@ -15,6 +15,7 @@ import ir.suchme.core.catalogue.SupplierCatalogue;
 import ir.suchme.core.domain.entity.Component;
 import ir.suchme.core.domain.entity.Product;
 import ir.suchme.core.domain.entity.Supplier;
+import ir.suchme.core.domain.entity.SupplyComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,9 +44,10 @@ public class SearchService {
 
     public ResponseSearchComponentDTO searchComponent(RequestSearchComponentDTO request){
         List<ComponentDTO> componentDTOs=new ArrayList<>();
-        for(Component component:componentCatalogue.search(request.getName()))
-            componentDTOs.add(new ComponentDTO(component.getName(),component.getPrice(),component.getMaxValue(),component.getMinValue(),component.getId().toString(),
-                    component.getSupplier().getName()));
+        for(Component component:componentCatalogue.search(request.getName())) {
+            for (SupplyComponent supplyComponent : component.getSupplyComponents())
+                componentDTOs.add(new ComponentDTO(component.getName(), supplyComponent.getPrice(), component.getMaxValue(), component.getMinValue(), component.getId().toString(), supplyComponent.getSupplier().getName()));
+        }
         return new ResponseSearchComponentDTO(null,"0",null,componentDTOs);
     }
     public ResponseSearchProductDTO searchProduct(RequestSearchProductDTO request){
