@@ -28,9 +28,10 @@ public class SupplyComponent extends BaseEntity{
     @ManyToOne(fetch= FetchType.LAZY)
     private Component component;
 
-    public SupplyComponent(int price, int timeToSupply, Supplier supplier, Component component) {
+    public SupplyComponent(Integer price, Integer timeToSupply, Integer quantity, Supplier supplier, Component component) {
         this.price = price;
         this.timeToSupply = timeToSupply;
+        this.quantity = quantity;
         this.supplier = supplier;
         this.component = component;
     }
@@ -44,14 +45,6 @@ public class SupplyComponent extends BaseEntity{
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getTimeToSupply() {
-        return timeToSupply;
-    }
-
-    public void setTimeToSupply(int timeToSupply) {
-        this.timeToSupply = timeToSupply;
     }
 
     public Supplier getSupplier() {
@@ -68,5 +61,25 @@ public class SupplyComponent extends BaseEntity{
 
     public void setComponent(Component component) {
         this.component = component;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public void setTimeToSupply(Integer timeToSupply) {
+        this.timeToSupply = timeToSupply;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getTimeToSupply() {
+        return timeToSupply;
     }
 }

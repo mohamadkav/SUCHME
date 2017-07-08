@@ -1,10 +1,7 @@
 package ir.suchme.core.service;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
-import ir.suchme.common.dto.order.OrderDTO;
-import ir.suchme.common.dto.order.RequestOrderComponentDTO;
-import ir.suchme.common.dto.order.RequestOrderListDTO;
-import ir.suchme.common.dto.order.ResponseOrderListDTO;
+import ir.suchme.common.dto.order.*;
 import ir.suchme.core.catalogue.ComponentCatalogue;
 import ir.suchme.core.catalogue.OrderCatalogue;
 import ir.suchme.core.catalogue.SupplierCatalogue;
@@ -61,11 +58,11 @@ public class OrderService {
             component=componentCatalogue.findOne(request.getComponentId());
         }
         else if(request.getSupplierId()!=null||request.getSupplierName()!=null){
-            component=componentCatalogue.create(request.getComponentName(),request.getPrice(),null,null);
+            component=componentCatalogue.create(request.getComponentName());
         }
         else
             return new BaseResponseDTO("Invalid Operation", "-100", null);
-        orderCatalogue.orderComponent(component,supplier, request.getQuantity());
+        orderCatalogue.orderComponent(component,supplier, request.getQuantity(),request.getPrice());
         return new BaseResponseDTO(null, "0", null);
     }
 
@@ -91,6 +88,13 @@ public class OrderService {
         res.setOrderDTOS(orderDTOS);
         res.setResponseCode("0");
         return res;
+    }
+    public BaseResponseDTO confirm(RequestOrderConfirmDTO request){
+        Order order=orderCatalogue.findOne(request.getId());
+        if(order==null)
+            return new BaseResponseDTO("Order not found","-100",null);
+        orderCatalogue.confirm(order);
+        return new BaseResponseDTO(null,"0",null);
     }
 
 }

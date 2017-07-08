@@ -1,7 +1,10 @@
 package ir.suchme.client.order;
 
+import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.client.util.SuchmeClient;
+import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.order.OrderDTO;
+import ir.suchme.common.dto.order.RequestOrderConfirmDTO;
 import ir.suchme.common.dto.order.RequestOrderListDTO;
 import ir.suchme.common.dto.order.ResponseOrderListDTO;
 import javafx.collections.FXCollections;
@@ -29,6 +32,7 @@ public class OrderListPresenter implements Initializable {
     @FXML private CheckBox productsCheckbox;
     @FXML private CheckBox componentsCheckbox;
     @FXML private Button submit;
+    @FXML private Button acceptOrderButton;
     @FXML private TableColumn<OrderDTO, String> objectName;
     @FXML private TableColumn<OrderDTO, String> quantity;
     @FXML private TableColumn<OrderDTO, String> created;
@@ -75,6 +79,13 @@ public class OrderListPresenter implements Initializable {
         table.setOnMouseClicked(event -> {
             OrderDTO selected=table.getSelectionModel().getSelectedItem();
             orderName.setText(selected.getObjectName());
+        });
+
+
+        acceptOrderButton.setOnAction(event -> {
+            SuchmeClient client = SuchmeClient.getInstance();
+            BaseResponseDTO out = client.postRequestAndWaitForResponse("/order/confirm", new RequestOrderConfirmDTO(table.getSelectionModel().getSelectedItem().getId()), BaseResponseDTO.class);
+            NotificationUtil.OK(out);
         });
 
     }

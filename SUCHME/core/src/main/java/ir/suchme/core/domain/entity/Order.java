@@ -16,11 +16,22 @@ public class Order extends BaseEntity{
     @Column(name = "QUANTITY",nullable = false)
     private Integer quantity;
 
+    @Column(name = "PRICE",nullable = false)
+    private Integer price;
+
     public Integer getQuantity() {
         return quantity;
     }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

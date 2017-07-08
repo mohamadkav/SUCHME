@@ -47,8 +47,8 @@ public class ComponentCatalogue {
         componentRepository.save(component);
     }
 
-    public ir.suchme.core.domain.entity.Component create(String name, Integer price, Integer minValue, Integer maxValue){
-        ir.suchme.core.domain.entity.Component c = new ir.suchme.core.domain.entity.Component(name,minValue,maxValue,null);
+    public ir.suchme.core.domain.entity.Component create(String name){
+        ir.suchme.core.domain.entity.Component c = new ir.suchme.core.domain.entity.Component(name,null,null,null);
         componentRepository.save(c);
         return c;
     }

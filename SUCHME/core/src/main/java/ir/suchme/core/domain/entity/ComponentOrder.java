@@ -21,11 +21,12 @@ public class ComponentOrder extends Order {
     private Supplier supplier;
 
 
-    public ComponentOrder(Component component,Supplier supplier, Date created,Integer quantity) {
+    public ComponentOrder(Component component,Supplier supplier, Date created,Integer quantity,Integer price) {
         this.component = component;
         setCreated(created);
         setQuantity(quantity);
         this.supplier=supplier;
+        setPrice(price);
     }
 
     public ComponentOrder() {
