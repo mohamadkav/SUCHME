@@ -147,6 +147,19 @@ public class MainController implements Initializable {
             }
         });
 
+        processReport.setOnAction(event -> {
+            Parent parent = null;
+            try {
+                parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-process.fxml"));
+                primaryPane.getChildren().clear();
+                primaryPane.getChildren().add(parent);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
+
         exit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

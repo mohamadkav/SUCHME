@@ -4,6 +4,7 @@ import ir.suchme.core.domain.entity.base.BaseEntity;
 import ir.suchme.core.domain.entity.enums.ProductType;
 
 import javax.persistence.*;
+import java.lang.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,9 +32,6 @@ public class Product extends BaseEntity{
 
     @OneToMany
     private Set<Comment> comments;
-
-    @OneToMany
-    private Set<Process> processes;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "PRODUCT_COMPONENT", joinColumns = {
@@ -128,6 +126,7 @@ public class Product extends BaseEntity{
         this.supplyComponents = supplyComponents;
     }
 
+
     public HashSet<Supplier> getAllSuppliers()
     {
         HashSet<Supplier> suppliers = new HashSet<>();
@@ -143,5 +142,12 @@ public class Product extends BaseEntity{
         if (this.getAllSuppliers().equals(product.getAllSuppliers()))
             return true;
         else return false;
+    }
+
+    public Process getManufactureProcess()
+    {
+        Process process = new Process(this);
+        process.setSupplyComponents(this.getSupplyComponents());
+        return process;
     }
 }

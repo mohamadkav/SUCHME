@@ -1,15 +1,55 @@
 package ir.suchme.core.domain.entity;
 
-import ir.suchme.core.domain.entity.base.BaseEntity;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Farzin on 7/8/2017.
  */
-@Entity
-@Table(name = "PROCESS")
-public class Process extends BaseEntity{
+public class Process{
 
+    private Product product;
+
+    private Set<SupplyComponent> supplyComponents = new HashSet<>();
+
+    public Process(Product product, Set<SupplyComponent> supplyComponents) {
+        this.product = product;
+        this.supplyComponents = supplyComponents;
+    }
+
+    public Process(Product product)
+    {
+        this.product = product;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Set<SupplyComponent> getSupplyComponents() {
+        return supplyComponents;
+    }
+
+    public void setSupplyComponents(Set<SupplyComponent> supplyComponents) {
+        this.supplyComponents = supplyComponents;
+    }
+
+    public void addToSupplyComponents(SupplyComponent supplyComponent)
+    {
+        this.supplyComponents.add(supplyComponent);
+    }
+
+    @Override
+    public String toString() {
+        return "Process{" +
+                "product=" + product +
+                ", supplyComponents=" + supplyComponents +
+                '}';
+    }
 }
+
+

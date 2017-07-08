@@ -2,22 +2,18 @@ package ir.suchme.core.service;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.order.*;
-import ir.suchme.core.catalogue.ComponentCatalogue;
-import ir.suchme.core.catalogue.OrderCatalogue;
-import ir.suchme.core.catalogue.SupplierCatalogue;
+import ir.suchme.common.dto.process.RequestProductManufactureProcess;
+import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
+import ir.suchme.core.catalogue.*;
 import ir.suchme.core.domain.ProductOrder;
-import ir.suchme.core.domain.entity.Component;
-import ir.suchme.core.domain.entity.ComponentOrder;
-import ir.suchme.core.domain.entity.Order;
-import ir.suchme.core.domain.entity.Supplier;
+import ir.suchme.core.domain.entity.*;
+import ir.suchme.core.domain.entity.enums.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by mohammad on 6/25/17.
@@ -32,11 +28,17 @@ public class OrderService {
 
     private final OrderCatalogue orderCatalogue;
 
+    private final ProductCatalogue productCatalogue;
+
+    private final SupplyComponentCatalogue supplyComponentCatalogue;
+
     @Autowired
-    public OrderService(ComponentCatalogue componentCatalogue, SupplierCatalogue supplierCatalogue, OrderCatalogue orderCatalogue) {
+    public OrderService(ComponentCatalogue componentCatalogue, SupplierCatalogue supplierCatalogue, OrderCatalogue orderCatalogue, ProductCatalogue productCatalogue, SupplyComponentCatalogue supplyComponentCatalogue) {
         this.componentCatalogue = componentCatalogue;
         this.supplierCatalogue = supplierCatalogue;
         this.orderCatalogue = orderCatalogue;
+        this.productCatalogue = productCatalogue;
+        this.supplyComponentCatalogue = supplyComponentCatalogue;
     }
 
     public BaseResponseDTO orderComponent(RequestOrderComponentDTO request){
@@ -95,6 +97,21 @@ public class OrderService {
             return new BaseResponseDTO("Order not found","-100",null);
         orderCatalogue.confirm(order);
         return new BaseResponseDTO(null,"0",null);
+    }
+
+    public BaseResponseDTO createManufactureProductProcess(RequestProductManufactureProcess request)
+    {
+        Product parentProduct = productCatalogue.findById(request.getProductId());
+        if(parentProduct == null)
+            return new BaseResponseDTO("Product not found","-100",null);
+        productCatalogue.createManufactureProcess(parentProduct, request.getSupplyComponentsId(), request.getProductsId());
+        return new BaseResponseDTO(null, "0", null);
+    }
+
+    public BaseResponseDTO createMiddlewareProduct(RequestCreateMiddlewareProduct requestCreateMiddlewareProduct)
+    {
+        productCatalogue.createMiddlewareProduct(requestCreateMiddlewareProduct.getName());
+        return new BaseResponseDTO(null, "0", null);
     }
 
 }
