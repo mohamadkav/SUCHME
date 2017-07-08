@@ -47,16 +47,8 @@ public class ComponentCatalogue {
         componentRepository.save(component);
     }
 
-    public ir.suchme.core.domain.entity.Component create(String name, Integer price, Integer minValue, Integer maxValue, Supplier supplier,Integer timeTosupply){
-        if(timeTosupply==null)
-            throw new AssertionError("TimeToSupply should not be null");
+    public ir.suchme.core.domain.entity.Component create(String name, Integer price, Integer minValue, Integer maxValue){
         ir.suchme.core.domain.entity.Component c = new ir.suchme.core.domain.entity.Component(name,minValue,maxValue,null);
-        componentRepository.save(c);
-        SupplyComponent supplyComponent = new SupplyComponent(price, timeTosupply, supplier, c);
-        supplyComponentRepository.save(supplyComponent);
-        Set<SupplyComponent> supplyComponentSet=new HashSet<>();
-        supplyComponentSet.add(supplyComponent);
-        c.setSupplyComponents(supplyComponentSet);
         componentRepository.save(c);
         return c;
     }

@@ -46,7 +46,9 @@ public class SearchService {
         List<ComponentDTO> componentDTOs=new ArrayList<>();
         for(Component component:componentCatalogue.search(request.getName())) {
             for (SupplyComponent supplyComponent : component.getSupplyComponents())
-                componentDTOs.add(new ComponentDTO(component.getName(), supplyComponent.getPrice(), component.getMaxValue(), component.getMinValue(), component.getId().toString(), supplyComponent.getSupplier().getName()));
+                componentDTOs.add(new ComponentDTO(component.getName(), supplyComponent.getPrice(), component.getMaxValue(), component.getMinValue(), component.getId().toString(), supplyComponent.getSupplier().getName(),
+                        supplyComponent.getSupplier().getId().toString(),
+                        supplyComponent.getTimeToSupply()));
         }
         return new ResponseSearchComponentDTO(null,"0",null,componentDTOs);
     }

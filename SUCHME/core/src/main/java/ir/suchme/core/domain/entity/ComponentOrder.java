@@ -16,10 +16,16 @@ public class ComponentOrder extends Order {
     @JoinColumn(name = "COMPONENTID")
     private Component  component;
 
-    public ComponentOrder(Component component, Date created,Integer quantity) {
+    @ManyToOne
+    @JoinColumn(name = "SUPPLIERID")
+    private Supplier supplier;
+
+
+    public ComponentOrder(Component component,Supplier supplier, Date created,Integer quantity) {
         this.component = component;
         setCreated(created);
         setQuantity(quantity);
+        this.supplier=supplier;
     }
 
     public ComponentOrder() {
@@ -31,5 +37,13 @@ public class ComponentOrder extends Order {
 
     public void setComponent(Component component) {
         this.component = component;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }

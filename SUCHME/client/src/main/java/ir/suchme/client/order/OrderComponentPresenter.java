@@ -39,8 +39,9 @@ public class OrderComponentPresenter implements Initializable {
     @FXML private ChoiceBox<SupplierDTO> selectedSupplierName;
     @FXML private TextField newSupplierName;
     @FXML private TextField newComponentPrice;
-    @FXML private TextField timeToBuild;
 
+
+//    HashMap<String,HashMap<String,Integer>> componentSuppliersTimeToSupplyMap=new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +58,16 @@ public class OrderComponentPresenter implements Initializable {
             NotificationUtil.check(out);
             ObservableList<ComponentDTO> items= FXCollections.observableArrayList(out.getComponentDTOS());
             table.setItems(items);
+/*            for(ComponentDTO c:out.getComponentDTOS()){
+                if(!componentSuppliersTimeToSupplyMap.containsKey(c.getId())){
+                    componentSuppliersTimeToSupplyMap.put(c.getId(),new HashMap<>());
+                    componentSuppliersTimeToSupplyMap.get(c.getId()).put(c.getSupplierId(),c.getTimeToSupply());
+                }
+                else if(componentSuppliersTimeToSupplyMap.get(c.getId()).get(c.getSupplierId())!=null)
+                    throw new IllegalArgumentException("Something horrible happened");
+                else
+                    componentSuppliersTimeToSupplyMap.get(c.getId()).put(c.getSupplierId(),c.getTimeToSupply());
+            }*/
         });
 
         acceptButton.setOnAction(event -> {
@@ -66,9 +77,8 @@ public class OrderComponentPresenter implements Initializable {
                     ,chooseSupplierFromExisting.isSelected()?selectedSupplierName.getSelectionModel().getSelectedItem()!=null?selectedSupplierName.getSelectionModel().getSelectedItem().getId():null:null
                     ,createNewSupplier.isSelected()?newSupplierName.getText():null
                     ,componentNameBox.getText()
-                    ,Integer.parseInt(newComponentPrice.getText())
-                    ,Integer.parseInt(numOfValues.getText()),Integer.parseInt(timeToBuild.getText())
-            ), BaseResponseDTO.class);
+                    ,newComponentPrice.getText()!=null&&!newComponentPrice.getText().isEmpty()?Integer.parseInt(newComponentPrice.getText()):null
+                    ,numOfValues.getText()!=null&&!numOfValues.getText().isEmpty()?Integer.parseInt(numOfValues.getText()):null),BaseResponseDTO.class);
             NotificationUtil.OK(out);
         });
 
@@ -83,11 +93,6 @@ public class OrderComponentPresenter implements Initializable {
             }
         });
 
-        timeToBuild.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                timeToBuild.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
 
         chooseSupplierFromExisting.selectedProperty().addListener((obs, wasPreviouslySelected, isNowSelected) -> {
             if (isNowSelected) {
@@ -103,6 +108,17 @@ public class OrderComponentPresenter implements Initializable {
                 selectedSupplierName.setVisible(false);
             }
         });
+
+/*
+        selectedSupplierName.setOnAction(event -> {
+            if(chooseSupplierFromExisting.isSelected()&&table.getSelectionModel().getSelectedItem()!=null){
+                if(componentSuppliersTimeToSupplyMap.get(table.getSelectionModel().getSelectedItem().getId()).get(selectedSupplierName.getSelectionModel().
+                getSelectedItem().getId())!=null){
+                    timeToBuild.setText(componentSuppliersTimeToSupplyMap.get(table.getSelectionModel().getSelectedItem().getId()).get(selectedSupplierName.getSelectionModel().
+                            getSelectedItem().getId())+"");
+                }
+            }
+        });*/
     }
 
 }

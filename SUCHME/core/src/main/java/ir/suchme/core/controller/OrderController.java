@@ -2,6 +2,8 @@ package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.order.RequestOrderComponentDTO;
+import ir.suchme.common.dto.order.RequestOrderListDTO;
+import ir.suchme.common.dto.order.ResponseOrderListDTO;
 import ir.suchme.core.component.UserLoggingComponent;
 import ir.suchme.core.service.OrderService;
 import org.slf4j.Logger;
@@ -50,6 +52,25 @@ public class OrderController {
             response.setError(e.getMessage());
             response.setResponseCode("-1");
             LOG.error("OrderController : orderComponent | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+    @RequestMapping( method = RequestMethod.POST,value = "/list")
+    public ResponseOrderListDTO listOrders(@RequestBody RequestOrderListDTO request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
+
+        long startTime = System.currentTimeMillis();
+        ResponseOrderListDTO response =new ResponseOrderListDTO();
+        try {
+            request.validation();
+            response = orderService.list(request);
+            LOG.info("OrderController : list : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("OrderController : list | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return response;
         }
     }

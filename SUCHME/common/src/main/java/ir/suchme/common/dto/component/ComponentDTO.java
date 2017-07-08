@@ -16,16 +16,22 @@ public class ComponentDTO {
 
     private String supplierName;
 
+    private String supplierId;
+
+    private Integer timeToSupply;
+
     public ComponentDTO() {
     }
 
-    public ComponentDTO(String name, Integer price, Integer maxValue, Integer minValue, String id, String supplierName) {
+    public ComponentDTO(String name, Integer price, Integer maxValue, Integer minValue, String id, String supplierName, String supplierId, Integer timeToSupply) {
         this.name = name;
         this.price = price;
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.id = id;
         this.supplierName = supplierName;
+        this.supplierId = supplierId;
+        this.timeToSupply = timeToSupply;
     }
 
     @Override
@@ -84,5 +90,21 @@ public class ComponentDTO {
 
     public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Integer getTimeToSupply() {
+        return timeToSupply;
+    }
+
+    public void setTimeToSupply(Integer timeToSupply) {
+        this.timeToSupply = timeToSupply;
     }
 }

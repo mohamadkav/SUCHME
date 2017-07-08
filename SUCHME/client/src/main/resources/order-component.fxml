@@ -18,36 +18,34 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Separator layoutX="663.0" layoutY="66.0" orientation="VERTICAL" prefHeight="273.0" prefWidth="7.0" />
+      <Separator layoutX="663.0" layoutY="66.0" orientation="VERTICAL" prefHeight="464.0" prefWidth="7.0" />
       <TextField fx:id="searchField" layoutX="718.0" layoutY="175.0" />
       <Label layoutX="697.0" layoutY="134.0" prefHeight="17.0" prefWidth="224.0" text="جستجو بر اساس نام )خالی برای جستجوی همه)" />
       <Button fx:id="searchButton" layoutX="781.0" layoutY="234.0" mnemonicParsing="false" text="جستجو" />
       <Label layoutX="387.0" layoutY="80.0" text="نتایج جستجو" />
-      <Separator layoutX="189.0" layoutY="71.0" orientation="VERTICAL" prefHeight="263.0" prefWidth="7.0" />
+      <Separator layoutX="272.0" layoutY="71.0" orientation="VERTICAL" prefHeight="454.0" prefWidth="7.0" />
       <Label layoutX="113.0" layoutY="116.0" text="سفارش" />
-      <TextField fx:id="numOfValues" layoutX="95.0" layoutY="188.0" prefHeight="27.0" prefWidth="61.0" />
-      <Label layoutX="59.0" layoutY="193.0" text="تعداد" />
-      <Button fx:id="acceptButton" layoutX="88.0" layoutY="255.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="68.0" text="تایید" />
-      <TableView fx:id="table" layoutX="199.0" layoutY="115.0" prefHeight="200.0" prefWidth="438.0">
+      <TextField fx:id="numOfValues" layoutX="109.0" layoutY="335.0" prefHeight="27.0" prefWidth="61.0" />
+      <Label layoutX="71.0" layoutY="340.0" text="تعداد" />
+      <Button fx:id="acceptButton" layoutX="109.0" layoutY="420.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="68.0" text="تایید" />
+      <TableView fx:id="table" layoutX="303.0" layoutY="113.0" prefHeight="407.0" prefWidth="334.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="151.0" text="نام" />
-          <TableColumn fx:id="supplierName" prefWidth="142.0" text="تامین کننده" />
-            <TableColumn fx:id="minValue" prefWidth="70.0" text="حداقل" />
-            <TableColumn fx:id="maxValue" prefWidth="73.0" text="حداکثر" />
+          <TableColumn fx:id="name" prefWidth="129.0" text="نام" />
+          <TableColumn fx:id="supplierName" prefWidth="87.0" text="تامین کننده" />
+            <TableColumn fx:id="minValue" prefWidth="67.0" text="حداقل" />
+            <TableColumn fx:id="maxValue" prefWidth="43.0" text="حداکثر" />
         </columns>
       </TableView>
-      <Label layoutX="401.0" layoutY="348.0" text="اضافه کردن مولفه جدید" />
-      <TextField fx:id="componentNameBox" layoutX="359.0" layoutY="393.0" />
-      <Label layoutX="301.0" layoutY="398.0" text="نام مولفه" />
-      <RadioButton fx:id="chooseSupplierFromExisting" layoutX="547.0" layoutY="384.0" mnemonicParsing="false" selected="true" text="انتخاب از توزیع کننده های موجود" />
-      <RadioButton fx:id="createNewSupplier" layoutX="547.0" layoutY="411.0" mnemonicParsing="false" text="توزیع کننده جدید" />
-      <Label layoutX="783.0" layoutY="357.0" text="نام توزیع کننده" />
+      <Label layoutX="774.0" layoutY="340.0" text="اضافه کردن مولفه جدید" />
+      <TextField fx:id="componentNameBox" layoutX="775.0" layoutY="393.0" />
+      <Label layoutX="714.0" layoutY="398.0" text="نام مولفه" />
+      <RadioButton fx:id="chooseSupplierFromExisting" layoutX="34.0" layoutY="157.0" mnemonicParsing="false" selected="true" text="انتخاب از توزیع کننده های موجود" />
+      <RadioButton fx:id="createNewSupplier" layoutX="37.0" layoutY="194.0" mnemonicParsing="false" text="توزیع کننده جدید" />
+      <Label layoutX="120.0" layoutY="225.0" prefHeight="18.0" prefWidth="68.0" text="نام توزیع کننده" />
       <Separator layoutX="717.0" layoutY="295.0" prefWidth="200.0" />
-      <ChoiceBox fx:id="selectedSupplierName" layoutX="734.0" layoutY="380.0" prefWidth="150.0" />
-      <TextField fx:id="newSupplierName" layoutX="728.0" layoutY="420.0" visible="false" />
-      <TextField fx:id="newComponentPrice" layoutX="359.0" layoutY="434.0" />
-      <Label layoutX="281.0" layoutY="438.0" text="قیمت مولفه" />
-      <TextField fx:id="timeToBuild" layoutX="360.0" layoutY="476.0" prefWidth="74.0" />
-      <Label layoutX="185.0" layoutY="480.0" text="روزهای مورد نیاز برای تولید مولفه" />
+      <ChoiceBox fx:id="selectedSupplierName" layoutX="57.0" layoutY="248.0" prefHeight="27.0" prefWidth="167.0" />
+      <TextField fx:id="newSupplierName" layoutX="81.0" layoutY="248.0" visible="false" />
+      <TextField fx:id="newComponentPrice" layoutX="776.0" layoutY="433.0" />
+      <Label layoutX="712.0" layoutY="438.0" text="قیمت مولفه" />
    </children>
 </AnchorPane>

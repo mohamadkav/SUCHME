@@ -35,6 +35,9 @@ public class SupplyComponent extends BaseEntity{
         this.component = component;
     }
 
+    public SupplyComponent() {
+    }
+
     public int getPrice() {
         return price;
     }

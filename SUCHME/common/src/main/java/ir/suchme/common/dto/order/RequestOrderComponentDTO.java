@@ -21,19 +21,16 @@ public class RequestOrderComponentDTO implements RequestDTO {
 
     private Integer quantity;
 
-    private Integer timeToSupply;
-
     public RequestOrderComponentDTO() {
     }
 
-    public RequestOrderComponentDTO(String componentId, String supplierId, String supplierName, String componentName, Integer price, Integer quantity, Integer timeToSupply) {
+    public RequestOrderComponentDTO(String componentId, String supplierId, String supplierName, String componentName, Integer price, Integer quantity) {
         this.componentId = componentId;
         this.supplierId = supplierId;
         this.supplierName = supplierName;
         this.componentName = componentName;
         this.price = price;
         this.quantity = quantity;
-        this.timeToSupply = timeToSupply;
     }
 
     @Override
@@ -57,7 +54,6 @@ public class RequestOrderComponentDTO implements RequestDTO {
                 ", componentName='" + componentName + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
-                ", timeToSupply=" + timeToSupply +
                 '}';
     }
 
@@ -109,11 +105,4 @@ public class RequestOrderComponentDTO implements RequestDTO {
         this.price = price;
     }
 
-    public Integer getTimeToSupply() {
-        return timeToSupply;
-    }
-
-    public void setTimeToSupply(Integer timeToSupply) {
-        this.timeToSupply = timeToSupply;
-    }
 }
