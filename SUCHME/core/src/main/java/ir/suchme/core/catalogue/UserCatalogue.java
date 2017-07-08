@@ -5,6 +5,9 @@ import ir.suchme.core.domain.entity.User;
 import ir.suchme.core.domain.entity.UserActivity;
 import ir.suchme.core.domain.repository.UserActivityRepository;
 import ir.suchme.core.domain.repository.UserRepository;
+import net.sargue.mailgun.Configuration;
+import net.sargue.mailgun.Mail;
+import net.sargue.mailgun.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by mohammad on 6/8/17.
@@ -66,6 +70,31 @@ public class UserCatalogue {
         else if(employee)
             count=userActivityRepository.countAllEmployeesByCreatedBetween(from, to).intValue();
         return count==0?1:count % size == 0 ? count / size : (count/size)+1;
+    }
+
+    public void changePassword(String username){
+        User user=userRepository.findByUserNameAndDeletedIsFalse(username);
+        if(user==null)
+            throw new AssertionError("User not found");
+        String pass=UUID.randomUUID().toString();
+        user.setPassword(pass);
+        userRepository.save(user);
+        sendMail(user.getEmail(),pass,"NEW PASSWORD");
+    }
+
+    public void sendMail(String email,String text,String subject){
+        Configuration configuration = new Configuration()
+                .domain("rdcint.ir")
+                .apiKey("key-5twn29es60z1suy8jei6qhn6v2z6zur9")
+                .from("Webmaster", "noreply@suchme.ir");
+        Response response=Mail.using(configuration)
+                .to(email)
+                .subject(subject)
+                .text(text)
+                .build()
+                .send();
+        if(!response.isOk())
+            throw new AssertionError(response.responseType().toString());
     }
 
     public List<UserActivity> getUserActivitiesByProperties(Date from, Date to, Pageable pageable, boolean employee, boolean customer){

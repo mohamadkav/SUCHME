@@ -81,4 +81,9 @@ public class UserService {
         res.setResponseCode("0");
         return res;
     }
+
+    public BaseResponseDTO forgotPassword(RequestUserForgotPasswordDTO request){
+        userCatalogue.changePassword(request.getUserName());
+        return new BaseResponseDTO(null,"0",null);
+    }
 }

@@ -92,6 +92,27 @@ public class UserController {
         }
     }
 
+
+    @RequestMapping( method = RequestMethod.POST,value = "/forgotPassword")
+    public BaseResponseDTO forgotPassword(@RequestBody RequestUserForgotPasswordDTO request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
+
+        long startTime = System.currentTimeMillis();
+        BaseResponseDTO response =new BaseResponseDTO();
+        try {
+            request.validation();
+            response = userService.forgotPassword(request);
+            LOG.info("UserController : forgotPassword : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("UserController : forgotPassword | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+
     @RequestMapping( method = RequestMethod.GET,value = "/list")
     public ArrayList<ResponseUserDTO> list() {
         long startTime = System.currentTimeMillis();
