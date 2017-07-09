@@ -1,8 +1,10 @@
 package ir.suchme.common.dto.process;
 
 import ir.suchme.common.dto.base.RequestDTO;
+import ir.suchme.common.dto.component.ComponentDTO;
 import org.assertj.core.api.Assertions;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,7 +19,7 @@ public class RequestProductManufactureProcess implements RequestDTO {
 
     private String productId;
 
-    private Set<String> supplyComponentsId;
+    private List<ComponentDTO> componentDTOS;
 
     private Set<String> productsId;
 
@@ -29,12 +31,12 @@ public class RequestProductManufactureProcess implements RequestDTO {
         this.productId = productId;
     }
 
-    public Set<String> getSupplyComponentsId() {
-        return supplyComponentsId;
+    public List<ComponentDTO> getComponentDTOS() {
+        return componentDTOS;
     }
 
-    public void setSupplyComponentsId(Set<String> supplyComponentsId) {
-        this.supplyComponentsId = supplyComponentsId;
+    public void setComponentDTOS(List<ComponentDTO> componentDTOS) {
+        this.componentDTOS = componentDTOS;
     }
 
     public Set<String> getProductsId() {

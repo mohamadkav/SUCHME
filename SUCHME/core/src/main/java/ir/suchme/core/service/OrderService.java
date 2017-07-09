@@ -110,14 +110,9 @@ public class OrderService {
         Product parentProduct = productCatalogue.findById(request.getProductId());
         if(parentProduct == null)
             return new BaseResponseDTO("Product not found","-100",null);
-        productCatalogue.createManufactureProcess(parentProduct, request.getSupplyComponentsId(), request.getProductsId());
+        productCatalogue.createManufactureProcess(parentProduct, request.getComponentDTOS(), request.getProductsId());
         return new BaseResponseDTO(null, "0", null);
     }
 
-    public BaseResponseDTO createMiddlewareProduct(RequestCreateMiddlewareProduct requestCreateMiddlewareProduct)
-    {
-        productCatalogue.createMiddlewareProduct(requestCreateMiddlewareProduct.getName());
-        return new BaseResponseDTO(null, "0", null);
-    }
 
 }

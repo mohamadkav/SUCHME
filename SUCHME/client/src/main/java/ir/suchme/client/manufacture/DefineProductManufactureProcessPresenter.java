@@ -12,6 +12,7 @@ import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
 import ir.suchme.common.dto.product.RequestSearchProductDTO;
 import ir.suchme.common.dto.product.ResponseSearchProductDTO;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,10 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Farzin on 7/8/2017.
@@ -40,6 +38,8 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
     @FXML private TableColumn<ProductDTO, String> productName;
     @FXML private Button addComponentsAndProductsButton;
     @FXML private TextField middlewareBox;
+    @FXML private TableView<ProductDTO> middlewareTable;
+    @FXML private TableColumn<ProductDTO, String> middlewareName;
     @FXML private Button middlewareButton;
     @FXML private Label middlewareLable;
 
@@ -55,27 +55,43 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
         supplierName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
 
         productName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        middlewareName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-
-        Set<String> selectedComponetnsId = new HashSet<>();
+        List<ComponentDTO> selectedComponetnsId = new LinkedList<>();
         Set<String> selectedProductsId = new HashSet<>();
 
-        for(ComponentDTO componentDTO : componentsTable.getSelectionModel().getSelectedItems())
-        {
-            selectedComponetnsId.add(componentDTO.getId());
-        }
+        componentsTable.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<ComponentDTO>() {
+            @Override
+            public void onChanged(Change<? extends ComponentDTO> c) {
+                if(componentsTable.getSelectionModel().getSelectedItems() != null)
+                {
+                    for (ComponentDTO dto : componentsTable.getSelectionModel().getSelectedItems())
+                    {
+                        selectedComponetnsId.add(dto);
+                    }
+                }
+            }
+        });
 
-        for(ProductDTO productDTO : productsTable.getSelectionModel().getSelectedItems())
-        {
-            selectedProductsId.add(productDTO.getId());
-        }
+        productsTable.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<ProductDTO>() {
+            @Override
+            public void onChanged(Change<? extends ProductDTO> c) {
+                if(productsTable.getSelectionModel().getSelectedItems() != null)
+                {
+                    for (ProductDTO dto : productsTable.getSelectionModel().getSelectedItems())
+                    {
+                        selectedProductsId.add(dto.getId());
+                    }
+                }
+            }
+        });
+
 
         middlewareButton.setOnAction(event -> {
             if(middlewareBox.getText() != null) {
-                componentsTable.getSelectionModel().getSelectedItems().clear();
-                productsTable.getSelectionModel().getSelectedItems().clear();
+//                componentsTable.getSelectionModel().getSelectedItems().clear();
+//                productsTable.getSelectionModel().getSelectedItems().clear();
                 middlewareLable.setText(middlewareBox.getText());
-                createMiddlewareProduct(middlewareBox.getText());
                 selectedMiddleware.setName(middlewareBox.getText());
             }
         });
@@ -90,8 +106,18 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
         });
 
         productsSearchButton.setOnAction(event -> {
-            ObservableList<ProductDTO> items = FXCollections.observableArrayList(getMiddlewareProducts(productsSearchBox.getText()));
+            ObservableList<ProductDTO> items = FXCollections.observableArrayList(getMaufacturedMiddlewareProducts(productsSearchBox.getText()));
             productsTable.setItems(items);
+        });
+
+        middlewareButton.setOnAction(event -> {
+            ObservableList<ProductDTO> items = FXCollections.observableArrayList(searchNotManufacturedMiddlewareProduct(middlewareBox.getText()));
+            middlewareTable.setItems(items);
+        });
+
+        middlewareTable.setOnMouseClicked(event -> {
+            middlewareLable.setText(middlewareTable.getSelectionModel().getSelectedItem().getName());
+            selectedMiddleware = middlewareTable.getSelectionModel().getSelectedItem();
         });
 
 
@@ -106,7 +132,7 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
         return response.getComponentDTOS();
     }
 
-    private List<ProductDTO> getMiddlewareProducts(String name)
+    private List<ProductDTO> getMaufacturedMiddlewareProducts(String name)
     {
         RequestSearchProductDTO request = new RequestSearchProductDTO();
         request.setName(name);
@@ -114,11 +140,13 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
         return response.getProductDTOS();
     }
 
-    private void createMiddlewareProduct(String name)
+    private List<ProductDTO> searchNotManufacturedMiddlewareProduct(String name)
     {
-        RequestCreateMiddlewareProduct request = new RequestCreateMiddlewareProduct(name);
-        BaseResponseDTO response = SuchmeClient.getInstance().postRequestAndWaitForResponse("/search/middleware_product", request, BaseResponseDTO.class);
-        NotificationUtil.OK(response);
+        //add type ordered to product
+        RequestSearchProductDTO request = new RequestSearchProductDTO(name);
+        ResponseSearchProductDTO response = SuchmeClient.getInstance().postRequestAndWaitForResponse("/search/product", request, ResponseSearchProductDTO.class);
+//        NotificationUtil.OK(response);
+        return response.getProductDTOS();
     }
 
     private void showAlert()
@@ -131,14 +159,15 @@ public class DefineProductManufactureProcessPresenter implements Initializable{
         }
     }
 
-    private void requestToCreateManufactureProcess(ProductDTO middlewareProduct, Set<String> componentsId, Set<String> productsId)
+    private void requestToCreateManufactureProcess(ProductDTO middlewareProduct, List<ComponentDTO> componentDTOS, Set<String> productsId)
     {
         RequestProductManufactureProcess request = new RequestProductManufactureProcess();
         request.setProductId(middlewareProduct.getId());
         request.setProductsId(productsId);
-        request.setSupplyComponentsId(componentsId);
+        request.setComponentDTOS(componentDTOS);
         BaseResponseDTO response = SuchmeClient.getInstance().postRequestAndWaitForResponse("/order/process", request, BaseResponseDTO.class);
         NotificationUtil.OK(response);
     }
+
 
 }

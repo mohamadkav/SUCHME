@@ -1,15 +1,15 @@
 package ir.suchme.core.catalogue;
 
+import ir.suchme.common.dto.component.ComponentDTO;
 import ir.suchme.core.domain.ProductOrder;
+import ir.suchme.core.domain.entity.*;
 import ir.suchme.core.domain.entity.Process;
-import ir.suchme.core.domain.entity.Product;
-import ir.suchme.core.domain.entity.Requirement;
-import ir.suchme.core.domain.entity.SupplyComponent;
 import ir.suchme.core.domain.entity.enums.ProductState;
 import ir.suchme.core.domain.entity.enums.ProductType;
 import ir.suchme.core.domain.repository.ProductOrderRepository;
 import ir.suchme.core.domain.repository.ProductRepository;
 import ir.suchme.core.domain.repository.RequirementRepository;
+import ir.suchme.core.domain.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,13 +26,20 @@ public class ProductCatalogue {
 
     private final SupplyComponentCatalogue supplyComponentCatalogue;
 
+    private final ComponentCatalogue componentCatalogue;
+
+    private final SupplierRepository supplierRepository;
 
     @Autowired
-    public ProductCatalogue(ProductRepository productRepository, RequirementRepository requirementRepository, SupplyComponentCatalogue supplyComponentCatalogue) {
+    public ProductCatalogue(ProductRepository productRepository, RequirementRepository requirementRepository, SupplyComponentCatalogue supplyComponentCatalogue, ComponentCatalogue componentCatalogue, SupplierRepository supplierRepository) {
         this.productRepository = productRepository;
         this.requirementRepository = requirementRepository;
         this.supplyComponentCatalogue = supplyComponentCatalogue;
+        this.componentCatalogue = componentCatalogue;
+        this.supplierRepository = supplierRepository;
     }
+
+
 
     public Iterable<Product> search(String name){
         return productRepository.findAllByNameLike(name);
@@ -81,12 +88,15 @@ public class ProductCatalogue {
         return product;
     }
 
-    public void createManufactureProcess(Product product, Set<String> supplyComponentsId, Set<String> productsId)
+    public void createManufactureProcess(Product product, List<ComponentDTO> componentDTOS, Set<String> productsId)
     {
         Set<SupplyComponent> supplyComponents = new HashSet<>();
-        for (String supplyComponentId : supplyComponentsId)
+
+        for (ComponentDTO componentDTO : componentDTOS)
         {
-            SupplyComponent sc = supplyComponentCatalogue.findOne(supplyComponentId);
+            ir.suchme.core.domain.entity.Component c = componentCatalogue.findOne(componentDTO.getId());
+            Supplier s = supplierRepository.findOne(UUID.fromString(componentDTO.getSupplierId()));
+            SupplyComponent sc = supplyComponentCatalogue.findOneByComponentAndSupplierId(c, s);
             if(sc != null)
                 supplyComponents.add(sc);
         }
@@ -94,20 +104,16 @@ public class ProductCatalogue {
         for (String productId : productsId)
         {
             Product p = findById(productId);
-            if(p != null)
+            if(p != null) {
                 subProducts.add(p);
+                p.setParentProduct(product);
+                productRepository.save(p);
+            }
         }
         product.setSupplyComponents(supplyComponents);
         product.setSubProducts(subProducts);
+        product.setProductState(ProductState.AVAILABLE);
         productRepository.save(product);
-    }
-
-    public void createMiddlewareProduct(String name)
-    {
-        Product p = new Product();
-        p.setProductType(ProductType.MIDDLEWARE);
-        p.setName(name);
-        productRepository.save(p);
     }
 
 }

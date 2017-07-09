@@ -1,7 +1,9 @@
 package ir.suchme.core.domain.entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created by Farzin on 7/8/2017.
@@ -49,6 +51,17 @@ public class Process{
                 "product=" + product +
                 ", supplyComponents=" + supplyComponents +
                 '}';
+    }
+
+
+    public List<Process> makeProcess(Product product)
+    {
+        Stack<Process> queue = new Stack<>();
+        for (Product sub : product.getSubProducts())
+        {
+//            queue.push()
+        }
+        return null;
     }
 }
 
