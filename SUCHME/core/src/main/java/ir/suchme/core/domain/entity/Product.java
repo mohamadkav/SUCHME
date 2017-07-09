@@ -31,7 +31,7 @@ public class Product extends BaseEntity{
     @Column
     private String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<Requirement> requirements;
 
 
