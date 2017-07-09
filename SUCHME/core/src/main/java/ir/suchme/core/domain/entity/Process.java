@@ -44,9 +44,12 @@ public class Process{
 
     @Override
     public String toString() {
+        HashMap<String, String> supplyComponentToString = new HashMap<>();
+        for (SupplyComponent sc : getSupplyComponents())
+            supplyComponentToString.put(sc.getComponent().getName(), sc.getSupplier().getName());
         return "Process{" +
-                "product=" + product +
-                ", supplyComponents=" + supplyComponents +
+                "product=" + product.getName() +
+                ", supplyComponents=" + supplyComponentToString +
                 '}';
     }
 

@@ -3,6 +3,8 @@ package ir.suchme.core.controller;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.order.*;
 import ir.suchme.common.dto.process.RequestProductManufactureProcess;
+import ir.suchme.common.dto.process.RequestReportManufactureDTO;
+import ir.suchme.common.dto.process.ResponseProcessReportDTO;
 import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
 import ir.suchme.core.component.UserLoggingComponent;
 import ir.suchme.core.service.OrderService;
@@ -152,7 +154,29 @@ public class OrderController {
             LOG.error("OrderController :finalize manufacture process | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return response;
         }
+
+
     }
 
+    @RequestMapping( method = RequestMethod.POST,value = "/get-process")
+    public ResponseProcessReportDTO getProcess(@RequestBody RequestReportManufactureDTO request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(), getClass().getSimpleName(), new Object() {
+        }.getClass().getEnclosingMethod().getName(), request);
+
+        long startTime = System.currentTimeMillis();
+        ResponseProcessReportDTO response = new ResponseProcessReportDTO();
+        try {
+            request.validation();
+            response = orderService.getProcess(request);
+            LOG.info("OrderController :get manufacture process : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception | AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("OrderController :get manufacture process | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
 
 }

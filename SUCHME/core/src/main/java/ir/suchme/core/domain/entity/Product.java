@@ -160,9 +160,26 @@ public class Product extends BaseEntity{
         return suppliers;
     }
 
+    public HashSet<Component> getAllComponents()
+    {
+        HashSet<Component> components = new HashSet<>();
+        for (SupplyComponent supplyComponent : getSupplyComponents())
+        {
+            components.add(supplyComponent.getComponent());
+        }
+        return components;
+    }
+
     public boolean isSimilarTo(Product product)
     {
         if (this.getAllSuppliers().equals(product.getAllSuppliers()))
+            return true;
+        else return false;
+    }
+
+    public boolean isSimilarToByDeliveryTime(Product product)
+    {
+        if (this.getAllComponents().equals(product.getAllComponents()))
             return true;
         else return false;
     }

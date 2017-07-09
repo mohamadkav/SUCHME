@@ -31,6 +31,7 @@ public class MainController implements Initializable {
     @FXML private MenuItem orderComponent;
     @FXML private MenuItem orderList;
     @FXML private MenuItem orderProduct;
+    @FXML private MenuItem manufactureProcess;
 
 
 
@@ -167,7 +168,7 @@ public class MainController implements Initializable {
         processReport.setOnAction(event -> {
             Parent parent = null;
             try {
-                parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-process.fxml"));
+                parent = FXMLLoader.load(getClass().getClassLoader().getResource("report-product-process.fxml"));
                 primaryPane.getChildren().clear();
                 primaryPane.getChildren().add(parent);
             }
@@ -180,6 +181,19 @@ public class MainController implements Initializable {
             Parent parent = null;
             try {
                 parent = FXMLLoader.load(getClass().getClassLoader().getResource("order-product.fxml"));
+                primaryPane.getChildren().clear();
+                primaryPane.getChildren().add(parent);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
+
+        manufactureProcess.setOnAction(event -> {
+            Parent parent = null;
+            try {
+                parent = FXMLLoader.load(getClass().getClassLoader().getResource("product-process.fxml"));
                 primaryPane.getChildren().clear();
                 primaryPane.getChildren().add(parent);
             }

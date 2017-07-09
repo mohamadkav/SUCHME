@@ -18,6 +18,10 @@ public class SupplierDTO {
         this.name = name;
     }
 
+    public SupplierDTO(String name) {
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }

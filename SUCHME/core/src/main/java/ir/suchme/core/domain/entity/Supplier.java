@@ -20,6 +20,7 @@ public class Supplier extends BaseEntity {
     private Set<SupplyComponent> supplyComponents;
 
 
+
     public Supplier(String name) {
         this.name = name;
     }

@@ -3,6 +3,7 @@ package ir.suchme.client.prediction;
 import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.client.util.SuchmeClient;
 import ir.suchme.common.dto.prediction.RequestPredictionDTO;
+import ir.suchme.common.dto.prediction.ResponsePredictDeliveryTimeDTO;
 import ir.suchme.common.dto.prediction.ResponsePredictPriceDTO;
 import ir.suchme.common.dto.product.ProductDTO;
 import ir.suchme.common.dto.product.RequestSearchProductDTO;
@@ -99,8 +100,7 @@ public class ProductPredictionPresenter implements Initializable {
             if(priceCheck.selectedProperty().getValue())
                 out = SuchmeClient.getInstance().postRequestAndWaitForResponse("/predict/price", requestPredictionDTO, ResponsePredictPriceDTO.class);
             else
-                System.out.println("not yet");
-//                out = SuchmeClient.getInstance().postRequestAndWaitForResponse("/predict/time", requestPredictionDTO, ResponsePredictDeliveryTimeDTO.class);
+                out = SuchmeClient.getInstance().postRequestAndWaitForResponse("/predict/time", requestPredictionDTO, ResponsePredictPriceDTO.class);
             NotificationUtil.check(out);
             similarProductsList.setCellFactory(new Callback<ListView<ProductDTO>, ListCell<ProductDTO>>() {
                 @Override

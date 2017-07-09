@@ -32,6 +32,11 @@ public class SupplyComponentDTO {
                 '}';
     }
 
+    public String reportForProcess(){
+        return "component = " + component.getName() +
+                ", supplier = " + supplier.getName();
+    }
+
     public SupplyComponentDTO() {
     }
 

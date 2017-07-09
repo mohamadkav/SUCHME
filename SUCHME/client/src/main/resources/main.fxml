@@ -52,6 +52,7 @@
                   <MenuItem mnemonicParsing="false" fx:id="orderProduct" text="سفارش کالا" />
                   <MenuItem mnemonicParsing="false" fx:id="orderComponent" text="سفارش مولفه جدید" />
                   <MenuItem mnemonicParsing="false" fx:id="orderList" text="لیست سفارش‌ها" />
+                  <MenuItem mnemonicParsing="false" fx:id="manufactureProcess" text="فرایند تولید محصول" />
 
               </items>
             </Menu>

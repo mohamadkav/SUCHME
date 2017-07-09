@@ -39,4 +39,16 @@ public class PredictionService {
         }
         return new ResponsePredictPriceDTO(null, "0", null, productDTOS);
     }
+
+    public ResponsePredictPriceDTO predictProductTime(RequestPredictionDTO request)
+    {
+        List<ProductDTO> productDTOS=new ArrayList<>();
+        Product p = productCatalogue.findById(request.getId());
+        for (Product product : productCatalogue.findSimilarProductsForDeliveryTime(p))
+        {
+            ProductDTO dto = new ProductDTO(product.getId().toString(), product.getPrice(), product.getName());
+            productDTOS.add(dto);
+        }
+        return new ResponsePredictPriceDTO(null, "0", null, productDTOS);
+    }
 }

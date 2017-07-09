@@ -1,9 +1,15 @@
 package ir.suchme.core.service;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
+import ir.suchme.common.dto.component.ComponentDTO;
+import ir.suchme.common.dto.component.SupplyComponentDTO;
 import ir.suchme.common.dto.order.*;
+import ir.suchme.common.dto.process.ProcessDTO;
 import ir.suchme.common.dto.process.RequestProductManufactureProcess;
+import ir.suchme.common.dto.process.RequestReportManufactureDTO;
+import ir.suchme.common.dto.process.ResponseProcessReportDTO;
 import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
+import ir.suchme.common.dto.supplier.SupplierDTO;
 import ir.suchme.core.catalogue.*;
 import ir.suchme.core.domain.ProductOrder;
 import ir.suchme.core.domain.entity.*;
@@ -13,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.Process;
 import java.util.*;
 
 /**
@@ -122,6 +129,37 @@ public class OrderService {
         productCatalogue.finalizeManufactureProcess(parentProduct, request.getComponentDTOS(), request.getProductsId());
         return new BaseResponseDTO(null, "0", null);
     }
+
+    public ResponseProcessReportDTO getProcess(RequestReportManufactureDTO requestReportManufactureDTO)
+    {
+        List<ir.suchme.core.domain.entity.Process> processes = productCatalogue.getAllProcesses(requestReportManufactureDTO.getProduct());
+        ResponseProcessReportDTO response = new ResponseProcessReportDTO();
+        List<ProcessDTO> dtos = new LinkedList<>();
+        for (ir.suchme.core.domain.entity.Process p : processes)
+        {
+            String report = "";
+            ProcessDTO dto = new ProcessDTO();
+            List<SupplyComponentDTO> scTOS = new LinkedList<>();
+            for (SupplyComponent sc : p.getSupplyComponents())
+            {
+                SupplyComponentDTO scdto = new SupplyComponentDTO();
+                scdto.setComponent(new ComponentDTO(sc.getComponent().getName()));
+                scdto.setSupplier(new SupplierDTO(sc.getSupplier().getName()));
+                scTOS.add(scdto);
+                report += scdto.reportForProcess();
+            }
+
+            dto.setManufactureProcess(scTOS);
+            dto.setProductName(p.getProduct().getName());
+            dto.setManufactureProcessReport(report);
+            dtos.add(dto);
+        }
+        response.setProcessDTOS(dtos);
+        response.setError(null);
+        response.setResponseCode("100");
+        return response;
+    }
+
 
 
 }

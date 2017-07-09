@@ -59,4 +59,25 @@ public class PredictionController {
             return baseResponseDTO;
         }
     }
+
+    @RequestMapping( method = RequestMethod.POST,value = "/time")
+    public ResponsePredictPriceDTO predictProductDeliveryTime(@RequestBody RequestPredictionDTO dto)
+    {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),dto);
+
+        long startTime = System.currentTimeMillis();
+        ResponsePredictPriceDTO baseResponseDTO =new ResponsePredictPriceDTO();
+        try {
+            dto.validation();
+            baseResponseDTO = predictionService.predictProductTime(dto);
+            LOG.info("predict product price : Success | Code: {}", baseResponseDTO.getResponseCode());
+            return baseResponseDTO;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            baseResponseDTO.setError(e.getMessage());
+            baseResponseDTO.setResponseCode("-1");
+            LOG.error("predict product price : Failed | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return baseResponseDTO;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package ir.suchme.core.catalogue;
 
 import ir.suchme.common.dto.component.ComponentDTO;
+import ir.suchme.common.dto.product.ProductDTO;
 import ir.suchme.core.domain.ProductOrder;
 import ir.suchme.core.domain.entity.*;
 import ir.suchme.core.domain.entity.Process;
@@ -66,22 +67,18 @@ public class ProductCatalogue {
         return out;
     }
 
-    public Set<Process> findProcess(Product product)
+    public Set<Product> findSimilarProductsForDeliveryTime(Product product)
     {
-//        Set<SupplyComponent> process = new HashSet<>();
-//        if(product.getSubProducts() == null || product.getSubProducts().size() == 0)
-//        {
-//            process.addAll(product.getSupplyComponents());
-//            return process;
-//
-//        }
-//        else
-//        {
-//
-//        }
-        return null;
-//
+        HashSet<Product> out = new HashSet<>();
+        for(Product p : productRepository.findAll())
+        {
+            if(p.isSimilarToByDeliveryTime(product) && !p.equals(product))
+                out.add(p);
+        }
+        return out;
     }
+
+
 
     public Product createProductWithRequirements(String productName, List<String> requirements){
         Product product=new Product(null, ProductState.ORDERED,null,null,productName,null,null,null,null,null);
@@ -118,7 +115,7 @@ public class ProductCatalogue {
             }
         }
 
-        List<Process> p = Process.makeProcess(product);
+//        List<Process> p = Process.makeProcess(product);
 
         product.setSupplyComponents(supplyComponents);
         product.setSubProducts(subProducts);
@@ -130,6 +127,11 @@ public class ProductCatalogue {
         createManufactureProcess(product, componentDTOS, productsId);
         product.setProductState(ProductState.AVAILABLE);
         productRepository.save(product);
+    }
+
+    public List<Process> getAllProcesses(ProductDTO product)
+    {
+        return Process.makeProcess(productRepository.findOne(UUID.fromString(product.getId())));
     }
 
 

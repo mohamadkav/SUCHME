@@ -44,6 +44,10 @@ public class ComponentDTO {
                 ", id='" + id ;
     }
 
+    public ComponentDTO(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
