@@ -14,7 +14,6 @@ import ir.suchme.core.catalogue.ProductCatalogue;
 import ir.suchme.core.catalogue.SupplyComponentCatalogue;
 import ir.suchme.core.domain.entity.Component;
 import ir.suchme.core.domain.entity.Product;
-import ir.suchme.core.domain.entity.Supplier;
 import ir.suchme.core.domain.entity.SupplyComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,9 +92,10 @@ public class WarehouseService {
             throw new IllegalArgumentException("Product not found");
         HashMap<Component,SupplyComponent> componentListHashMap=new HashMap<>();
 
-        for (ComponentDTO componentDTO : request.getNewPath().keySet()) {
+        for (int i=0;i<request.getComponentDTOS().size();i++) {
+            ComponentDTO componentDTO=request.getComponentDTOS().get(i);
             Component component=componentCatalogue.findOne(componentDTO.getId());
-            SupplyComponent supplyComponent=supplyComponentCatalogue.findOne(request.getNewPath().get(componentDTO).getId());
+            SupplyComponent supplyComponent=supplyComponentCatalogue.findOne(request.getSupplyComponentDTOS().get(i).getId());
             componentListHashMap.put(component,supplyComponent);
         }
 

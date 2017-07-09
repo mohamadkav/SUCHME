@@ -1,9 +1,10 @@
 package ir.suchme.common.dto.product;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.component.ComponentDTO;
 import ir.suchme.common.dto.component.SupplyComponentDTO;
-import ir.suchme.common.dto.supplier.SupplierDTO;
+import ir.suchme.common.util.ComponentDeserializer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by mohammad on 6/18/17.
  */
 public class ResponseGetDifferentPathsDTO extends BaseResponseDTO{
+    @JsonDeserialize(keyUsing = ComponentDeserializer.class)
     private HashMap<ComponentDTO,List<SupplyComponentDTO>> pathDTOs;
 
     @Override

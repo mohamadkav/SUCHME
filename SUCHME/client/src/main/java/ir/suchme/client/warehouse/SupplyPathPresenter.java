@@ -4,8 +4,6 @@ import ir.suchme.client.util.NotificationUtil;
 import ir.suchme.client.util.SuchmeClient;
 import ir.suchme.common.dto.base.BaseResponseDTO;
 import ir.suchme.common.dto.component.ComponentDTO;
-import ir.suchme.common.dto.component.RequestSearchComponentDTO;
-import ir.suchme.common.dto.component.ResponseSearchComponentDTO;
 import ir.suchme.common.dto.component.SupplyComponentDTO;
 import ir.suchme.common.dto.product.*;
 import javafx.collections.FXCollections;
@@ -16,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -73,7 +72,9 @@ public class SupplyPathPresenter implements Initializable {
 
         acceptButton.setOnAction(event -> {
             SuchmeClient client = SuchmeClient.getInstance();
-            BaseResponseDTO out = client.postRequestAndWaitForResponse("/warehouse/changePath", new RequestChangeSupplyPathDTO(resultList.getSelectionModel().getSelectedItem(),newPath), BaseResponseDTO.class);
+            List<ComponentDTO>componentDTOS=new ArrayList<>(newPath.keySet());
+            List<SupplyComponentDTO>supplyComponentDTOS=new ArrayList<>(newPath.values());
+            BaseResponseDTO out = client.postRequestAndWaitForResponse("/warehouse/changePath", new RequestChangeSupplyPathDTO(resultList.getSelectionModel().getSelectedItem(),componentDTOS,supplyComponentDTOS), BaseResponseDTO.class);
             NotificationUtil.OK(out);
         });
 

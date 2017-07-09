@@ -1,7 +1,5 @@
 package ir.suchme.core.domain.entity;
 
-import ir.suchme.core.domain.entity.Component;
-import ir.suchme.core.domain.entity.Supplier;
 import ir.suchme.core.domain.entity.base.BaseEntity;
 
 import javax.persistence.*;
@@ -39,7 +37,7 @@ public class SupplyComponent extends BaseEntity{
     public SupplyComponent() {
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

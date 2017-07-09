@@ -8,19 +8,19 @@ import ir.suchme.common.dto.process.ProcessDTO;
 import ir.suchme.common.dto.process.RequestProductManufactureProcess;
 import ir.suchme.common.dto.process.RequestReportManufactureDTO;
 import ir.suchme.common.dto.process.ResponseProcessReportDTO;
-import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
 import ir.suchme.common.dto.supplier.SupplierDTO;
 import ir.suchme.core.catalogue.*;
 import ir.suchme.core.domain.ProductOrder;
 import ir.suchme.core.domain.entity.*;
-import ir.suchme.core.domain.entity.enums.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.Process;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by mohammad on 6/25/17.
@@ -61,7 +61,7 @@ public class OrderService {
             return new BaseResponseDTO("Supplier not found", "-100", null);
 
 
-        if(request.getComponentName()==null) {
+        if(request.getComponentName()==null|| request.getComponentName().trim().isEmpty()) {
             if (componentCatalogue.findOne(request.getComponentId()) == null)
                 return new BaseResponseDTO("Component not found", "-100", null);
             component=componentCatalogue.findOne(request.getComponentId());
