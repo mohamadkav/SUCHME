@@ -34,7 +34,7 @@ public class PredictionService {
         Product p = productCatalogue.findById(request.getId());
         for (Product product : productCatalogue.findSimilarProducts(p))
         {
-            ProductDTO dto = new ProductDTO(product.getId().toString(), product.getPrice(), product.getName(), product.getQuantity());
+            ProductDTO dto = new ProductDTO(product.getId().toString(), product.getPrice(), product.getName());
             productDTOS.add(dto);
         }
         return new ResponsePredictPriceDTO(null, "0", null, productDTOS);

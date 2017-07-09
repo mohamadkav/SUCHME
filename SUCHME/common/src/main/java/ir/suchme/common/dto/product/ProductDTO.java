@@ -1,7 +1,5 @@
 package ir.suchme.common.dto.product;
 
-import java.util.List;
-
 /**
  * Created by mohammad on 6/18/17.
  */
@@ -12,18 +10,13 @@ public class ProductDTO {
 
     private String name;
 
-    private Integer quantity;
-
-    private List<RequirmentDTO> requirmentDTOS;
-
     public ProductDTO() {
     }
 
-    public ProductDTO(String id, Integer price, String name,Integer quantity) {
+    public ProductDTO(String id, Integer price, String name) {
         this.id = id;
         this.price = price;
         this.name = name;
-        this.quantity=quantity;
     }
 
     public String getId() {
@@ -52,27 +45,9 @@ public class ProductDTO {
 
     @Override
     public String toString() {
-        return "ProductDTO{" +
-                "id='" + id + '\'' +
+        return "{" +
                 ", price=" + price +
                 ", name='" + name + '\'' +
-                ", quantity=" + quantity +
                 '}';
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public List<RequirmentDTO> getRequirmentDTOS() {
-        return requirmentDTOS;
-    }
-
-    public void setRequirmentDTOS(List<RequirmentDTO> requirmentDTOS) {
-        this.requirmentDTOS = requirmentDTOS;
     }
 }

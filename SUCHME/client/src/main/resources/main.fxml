@@ -30,6 +30,7 @@
             <items>
               <MenuItem fx:id="assignMinMaxMenu" mnemonicParsing="false" text="تعیین سقف و کف موجودی" />
               <MenuItem fx:id="getQuantityMenu" mnemonicParsing="false" text="دریافت موجودی محصولات" />
+              <MenuItem fx:id="supplyPathMenu" mnemonicParsing="false" text="مسیرهای مختلف تولید محصولات" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="گزارش گیری" >

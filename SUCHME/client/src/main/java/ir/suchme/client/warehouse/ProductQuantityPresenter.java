@@ -44,7 +44,7 @@ public class ProductQuantityPresenter implements Initializable{
             ProductDTO selected=(ProductDTO)resultList.getSelectionModel().getSelectedItem();
             name.setText(selected.getName());
             price.setText(selected.getPrice()+"");
-            quantity.setText(selected.getQuantity()+"");
+          //  quantity.setText(selected.getQuantity()+"");
         });
 
     }

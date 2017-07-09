@@ -5,7 +5,6 @@ import ir.suchme.common.dto.component.RequestSearchComponentDTO;
 import ir.suchme.common.dto.component.ResponseSearchComponentDTO;
 import ir.suchme.common.dto.product.ProductDTO;
 import ir.suchme.common.dto.product.RequestSearchProductDTO;
-import ir.suchme.common.dto.product.RequirmentDTO;
 import ir.suchme.common.dto.product.ResponseSearchProductDTO;
 import ir.suchme.common.dto.supplier.RequestSearchSupplierDTO;
 import ir.suchme.common.dto.supplier.ResponseSearchSupplierDTO;
@@ -13,13 +12,14 @@ import ir.suchme.common.dto.supplier.SupplierDTO;
 import ir.suchme.core.catalogue.ComponentCatalogue;
 import ir.suchme.core.catalogue.ProductCatalogue;
 import ir.suchme.core.catalogue.SupplierCatalogue;
-import ir.suchme.core.domain.entity.*;
-import ir.suchme.core.domain.entity.enums.ProductState;
+import ir.suchme.core.domain.entity.Component;
+import ir.suchme.core.domain.entity.Product;
+import ir.suchme.core.domain.entity.Supplier;
+import ir.suchme.core.domain.entity.SupplyComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,50 +54,9 @@ public class SearchService {
     }
     public ResponseSearchProductDTO searchProduct(RequestSearchProductDTO request){
         List<ProductDTO> productDTOS=new ArrayList<>();
-        if(request.getState() == null || request.getState() == "") {
-            for (Product product : productCatalogue.search(request.getName())) {
-                ProductDTO dto = new ProductDTO(product.getId().toString(), product.getPrice(), product.getName(), product.getQuantity());
-                List<RequirmentDTO> requirmentDTOS = new LinkedList<>();
-                for (Requirement req : product.getRequirements()) {
-                    RequirmentDTO reqdto = new RequirmentDTO();
-                    reqdto.setDescription(req.getDescription());
-                    requirmentDTOS.add(reqdto);
-                }
-                dto.setRequirmentDTOS(requirmentDTOS);
-                productDTOS.add(dto);
-            }
-            return new ResponseSearchProductDTO(null, "0", null, productDTOS);
-        }
-        else
-        {
-            ProductState myState = null;
-            switch (request.getState()){
-                case "ORDERED":
-                    myState = ProductState.ORDERED;
-                    break;
-                case "DELIVERED":
-                    myState = ProductState.DELIVERED;
-                    break;
-                case "AVAILABLE":
-                    myState = ProductState.AVAILABLE;
-                    break;
-                default:
-                    break;
-            }
-
-                for (Product product : productCatalogue.searchByStateAndName(request.getName(), myState)) {
-                    ProductDTO dto = new ProductDTO(product.getId().toString(), product.getPrice(), product.getName(), product.getQuantity());
-                    List<RequirmentDTO> requirmentDTOS = new LinkedList<>();
-                    for (Requirement req : product.getRequirements()) {
-                        RequirmentDTO reqdto = new RequirmentDTO();
-                        reqdto.setDescription(req.getDescription());
-                        requirmentDTOS.add(reqdto);
-                    }
-                    dto.setRequirmentDTOS(requirmentDTOS);
-                    productDTOS.add(dto);
-                }
-                return new ResponseSearchProductDTO(null, "0", null, productDTOS);
-        }
+        for(Product product:productCatalogue.search(request.getName()))
+            productDTOS.add(new ProductDTO(product.getId().toString(),product.getPrice(),product.getName()));
+        return new ResponseSearchProductDTO(null,"0",null,productDTOS);
     }
 
     public ResponseSearchSupplierDTO searchSupplier(RequestSearchSupplierDTO request){

@@ -31,9 +31,6 @@ public class Product extends BaseEntity{
     @Column
     private String name;
 
-    @Column
-    private Integer quantity;
-
     @OneToMany
     private Set<Requirement> requirements;
 
@@ -57,13 +54,12 @@ public class Product extends BaseEntity{
     private Set<Product> subProducts;
 
 
-    public Product(ProductType productType, ProductState productState, Integer price, String description, String name, Integer quantity, Set<Requirement> requirements, Set<Comment> comments, Set<SupplyComponent> supplyComponents, Product parentProduct, Set<Product> subProducts) {
+    public Product(ProductType productType, ProductState productState, Integer price, String description, String name, Set<Requirement> requirements, Set<Comment> comments, Set<SupplyComponent> supplyComponents, Product parentProduct, Set<Product> subProducts) {
         this.productType = productType;
         this.productState = productState;
         this.price = price;
         this.description = description;
         this.name = name;
-        this.quantity = quantity;
         this.requirements = requirements;
         this.comments = comments;
         this.supplyComponents = supplyComponents;
@@ -120,14 +116,6 @@ public class Product extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public Product getParentProduct() {

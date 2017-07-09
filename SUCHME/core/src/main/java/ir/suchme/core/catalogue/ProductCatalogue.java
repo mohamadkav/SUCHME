@@ -84,7 +84,7 @@ public class ProductCatalogue {
     }
 
     public Product createProductWithRequirements(String productName, List<String> requirements){
-        Product product=new Product(null, ProductState.ORDERED,null,null,productName,0,null,null,null,null,null);
+        Product product=new Product(null, ProductState.ORDERED,null,null,productName,null,null,null,null,null);
         productRepository.save(product);
         for(String requirement:requirements){
             Requirement requirement1=new Requirement(product,requirement);
