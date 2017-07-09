@@ -68,6 +68,12 @@ public class OrderService {
         return new BaseResponseDTO(null, "0", null);
     }
 
+    public BaseResponseDTO orderProduct(RequestOrderProductDTO request){
+        Product p=productCatalogue.createProductWithRequirements(request.getProductName(),request.getRequirements());
+        orderCatalogue.orderProduct(p,request.getQuantity());
+        return new BaseResponseDTO(null, "0", null);
+    }
+
     public ResponseOrderListDTO list(RequestOrderListDTO request){
         Pageable pageable = new PageRequest(request.getPage(), request.getSize());
         //Null values need specification. I don't have the time for that. TOF:

@@ -1,16 +1,19 @@
 package ir.suchme.core.catalogue;
 
+import ir.suchme.core.domain.ProductOrder;
 import ir.suchme.core.domain.entity.Process;
 import ir.suchme.core.domain.entity.Product;
+import ir.suchme.core.domain.entity.Requirement;
 import ir.suchme.core.domain.entity.SupplyComponent;
+import ir.suchme.core.domain.entity.enums.ProductState;
 import ir.suchme.core.domain.entity.enums.ProductType;
+import ir.suchme.core.domain.repository.ProductOrderRepository;
 import ir.suchme.core.domain.repository.ProductRepository;
+import ir.suchme.core.domain.repository.RequirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by mohammad on 6/18/17.
@@ -19,10 +22,15 @@ import java.util.UUID;
 public class ProductCatalogue {
     private final ProductRepository productRepository;
 
+    private final RequirementRepository requirementRepository;
+
     private final SupplyComponentCatalogue supplyComponentCatalogue;
 
-    public ProductCatalogue(ProductRepository productRepository, SupplyComponentCatalogue supplyComponentCatalogue) {
+
+    @Autowired
+    public ProductCatalogue(ProductRepository productRepository, RequirementRepository requirementRepository, SupplyComponentCatalogue supplyComponentCatalogue) {
         this.productRepository = productRepository;
+        this.requirementRepository = requirementRepository;
         this.supplyComponentCatalogue = supplyComponentCatalogue;
     }
 
@@ -61,6 +69,16 @@ public class ProductCatalogue {
 //        }
         return null;
 //
+    }
+
+    public Product createProductWithRequirements(String productName, List<String> requirements){
+        Product product=new Product(null, ProductState.ORDERED,null,null,productName,0,null,null,null,null,null);
+        productRepository.save(product);
+        for(String requirement:requirements){
+            Requirement requirement1=new Requirement(product,requirement);
+            requirementRepository.save(requirement1);
+        }
+        return product;
     }
 
     public void createManufactureProcess(Product product, Set<String> supplyComponentsId, Set<String> productsId)

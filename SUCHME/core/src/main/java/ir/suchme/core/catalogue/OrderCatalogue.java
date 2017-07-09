@@ -1,10 +1,7 @@
 package ir.suchme.core.catalogue;
 
 import ir.suchme.core.domain.ProductOrder;
-import ir.suchme.core.domain.entity.ComponentOrder;
-import ir.suchme.core.domain.entity.Order;
-import ir.suchme.core.domain.entity.Supplier;
-import ir.suchme.core.domain.entity.SupplyComponent;
+import ir.suchme.core.domain.entity.*;
 import ir.suchme.core.domain.repository.ComponentOrderRepository;
 import ir.suchme.core.domain.repository.OrderRepository;
 import ir.suchme.core.domain.repository.ProductOrderRepository;
@@ -42,12 +39,17 @@ public class OrderCatalogue {
         ComponentOrder componentOrder=new ComponentOrder(component,supplier,new Date(),quantity,price);
         componentOrderRepository.save(componentOrder);
     }
+    public void orderProduct(Product product,Integer quantity){
+        ProductOrder productOrder=new ProductOrder(product,new Date(),quantity);
+        productOrderRepository.save(productOrder);
+    }
+
 
     public List<ComponentOrder> listComponentOrders(Date from, Date to, Pageable pageable){
-        return componentOrderRepository.findAllByCreatedBetween(from,to,pageable);
+        return componentOrderRepository.findAllByCreatedBetweenAndDeletedIsFalse(from,to,pageable);
     }
     public List<ProductOrder> listProductOrders(Date from, Date to, Pageable pageable){
-        return productOrderRepository.findAllByCreatedBetween(from,to,pageable);
+        return productOrderRepository.findAllByCreatedBetweenAndDeletedIsFalse(from,to,pageable);
     }
 
     public Integer totalPages(Date from,Date to,Integer size,boolean product,boolean component){
@@ -75,6 +77,8 @@ public class OrderCatalogue {
             else
                 supplyComponent.setQuantity(supplyComponent.getQuantity()+componentOrder.getQuantity());
             supplyComponentRepository.save(supplyComponent);
+            order.setDeleted(true);
+            orderRepository.save(order);
         }
         else
             throw new AssertionError("Order type undefined");

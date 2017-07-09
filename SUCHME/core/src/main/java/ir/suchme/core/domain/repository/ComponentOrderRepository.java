@@ -12,6 +12,6 @@ import java.util.UUID;
  * Created by mohammad on 6/25/17.
  */
 public interface ComponentOrderRepository extends CrudRepository<ComponentOrder,UUID> {
-    List<ComponentOrder>findAllByCreatedBetween(Date from, Date to, Pageable pageable);
+    List<ComponentOrder>findAllByCreatedBetweenAndDeletedIsFalse(Date from, Date to, Pageable pageable);
     Integer countAllByCreatedBetween(Date from, Date to);
 }

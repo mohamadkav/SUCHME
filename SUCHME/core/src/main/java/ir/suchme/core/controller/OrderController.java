@@ -1,10 +1,7 @@
 package ir.suchme.core.controller;
 
 import ir.suchme.common.dto.base.BaseResponseDTO;
-import ir.suchme.common.dto.order.RequestOrderComponentDTO;
-import ir.suchme.common.dto.order.RequestOrderConfirmDTO;
-import ir.suchme.common.dto.order.RequestOrderListDTO;
-import ir.suchme.common.dto.order.ResponseOrderListDTO;
+import ir.suchme.common.dto.order.*;
 import ir.suchme.common.dto.process.RequestProductManufactureProcess;
 import ir.suchme.common.dto.product.RequestCreateMiddlewareProduct;
 import ir.suchme.core.component.UserLoggingComponent;
@@ -55,6 +52,25 @@ public class OrderController {
             response.setError(e.getMessage());
             response.setResponseCode("-1");
             LOG.error("OrderController : orderComponent | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+    @RequestMapping( method = RequestMethod.POST,value = "/product")
+    public BaseResponseDTO orderProduct(@RequestBody RequestOrderProductDTO request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
+
+        long startTime = System.currentTimeMillis();
+        BaseResponseDTO response =new BaseResponseDTO();
+        try {
+            request.validation();
+            response = orderService.orderProduct(request);
+            LOG.info("OrderController : orderProduct : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("OrderController : orderProduct | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
             return response;
         }
     }
@@ -119,7 +135,7 @@ public class OrderController {
     }
 
     @RequestMapping( method = RequestMethod.POST,value = "/middleware_product")
-    public BaseResponseDTO confirm(@RequestBody RequestCreateMiddlewareProduct request) {
+    public BaseResponseDTO createMiddlewareProcess(@RequestBody RequestCreateMiddlewareProduct request) {
         userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
 
         long startTime = System.currentTimeMillis();

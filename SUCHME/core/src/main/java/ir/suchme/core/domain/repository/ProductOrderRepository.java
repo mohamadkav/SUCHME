@@ -12,6 +12,6 @@ import java.util.UUID;
  * Created by mohammad on 6/25/17.
  */
 public interface ProductOrderRepository extends PagingAndSortingRepository<ProductOrder,UUID> {
-    List<ProductOrder>findAllByCreatedBetween(Date from, Date to, Pageable pageable);
+    List<ProductOrder>findAllByCreatedBetweenAndDeletedIsFalse(Date from, Date to, Pageable pageable);
     Integer countAllByCreatedBetween(Date from, Date to);
 }

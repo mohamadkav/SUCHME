@@ -1,6 +1,7 @@
 package ir.suchme.core.domain.entity;
 
 import ir.suchme.core.domain.entity.base.BaseEntity;
+import ir.suchme.core.domain.entity.enums.ProductState;
 import ir.suchme.core.domain.entity.enums.ProductType;
 
 import javax.persistence.*;
@@ -18,6 +19,9 @@ public class Product extends BaseEntity{
     @Enumerated(value = EnumType.STRING)
     private ProductType productType;
 
+    @Enumerated(value = EnumType.STRING)
+    private ProductState productState;
+
     @Column
     private Integer price;
 
@@ -29,6 +33,10 @@ public class Product extends BaseEntity{
 
     @Column
     private Integer quantity;
+
+    @OneToMany
+    private Set<Requirement> requirements;
+
 
     @OneToMany
     private Set<Comment> comments;
@@ -49,9 +57,29 @@ public class Product extends BaseEntity{
     private Set<Product> subProducts;
 
 
-
+    public Product(ProductType productType, ProductState productState, Integer price, String description, String name, Integer quantity, Set<Requirement> requirements, Set<Comment> comments, Set<SupplyComponent> supplyComponents, Product parentProduct, Set<Product> subProducts) {
+        this.productType = productType;
+        this.productState = productState;
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity;
+        this.requirements = requirements;
+        this.comments = comments;
+        this.supplyComponents = supplyComponents;
+        this.parentProduct = parentProduct;
+        this.subProducts = subProducts;
+    }
 
     public Product() {
+    }
+
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 
     public ProductType getProductType() {
@@ -126,6 +154,13 @@ public class Product extends BaseEntity{
         this.supplyComponents = supplyComponents;
     }
 
+    public ProductState getProductState() {
+        return productState;
+    }
+
+    public void setProductState(ProductState productState) {
+        this.productState = productState;
+    }
 
     public HashSet<Supplier> getAllSuppliers()
     {
