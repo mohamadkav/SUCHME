@@ -17,7 +17,7 @@
           <TableColumn fx:id="productName" prefWidth="223.0" text="نام" />
         </columns>
       </TableView>
-      <Separator layoutX="628.0" layoutY="286.0" prefHeight="5.0" prefWidth="318.0" />
+      <Separator layoutX="597.0" layoutY="471.0" prefHeight="5.0" prefWidth="318.0" />
       <TextField fx:id="newSupplierName" layoutX="81.0" layoutY="248.0" visible="false" />
       <TableView fx:id="componentsTable" layoutX="26.0" layoutY="110.0" prefHeight="407.0" prefWidth="217.0">
          <columns>
@@ -34,18 +34,20 @@
       <Button fx:id="componentsSearchButton" layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="جستجو" />
       <Label layoutX="603.0" layoutY="54.0" text="انتخاب محصول میانی" />
       <TextField fx:id="middlewareBox" layoutX="723.0" layoutY="51.0" />
-      <Button fx:id="middlewareButton" layoutX="896.0" layoutY="49.0" mnemonicParsing="false" text="جستجو" />
+      <Button fx:id="middlewareButton" layoutX="896.0" layoutY="51.0" mnemonicParsing="false" text="جستجو" />
       <Label fx:id="middlewareLable" layoutX="719.0" layoutY="237.0" text="نا مشخص" />
-      <Label layoutX="603.0" layoutY="235.0" text="محصول " />
-      <Label layoutX="606.0" layoutY="315.0" text="انتخاب سفارش بر اساس کد" />
-      <TextField fx:id="componentNameBox11" layoutX="751.0" layoutY="311.0" prefHeight="25.0" prefWidth="62.0" />
-      <Button fx:id="searchButton3" layoutX="838.0" layoutY="311.0" mnemonicParsing="false" text="جستجو" />
-      <Label layoutX="609.0" layoutY="363.0" text="سفارش:" />
-      <Label layoutX="674.0" layoutY="363.0" prefHeight="17.0" prefWidth="182.0" text="نا مشخص" />
+      <Label layoutX="608.0" layoutY="235.0" text="محصول " />
       <TableView fx:id="middlewareTable" layoutX="608.0" layoutY="94.0" prefHeight="130.0" prefWidth="271.0">
          <columns>
             <TableColumn fx:id="middlewareName" prefWidth="270.0" text="نام" />
          </columns>
       </TableView>
+      <Button fx:id="finalizeProcess" layoutX="669.0" layoutY="493.0" mnemonicParsing="false" text="تایید نیازمندی ها و فرایند" />
+      <TableView fx:id="requirmentsTable" layoutX="606.0" layoutY="309.0" prefHeight="137.0" prefWidth="271.0">
+         <columns>
+            <TableColumn fx:id="requirmentDescription" prefWidth="270.0" text="توضیحات" />
+         </columns>
+      </TableView>
+      <Label layoutX="614.0" layoutY="280.0" text="لیست نیازمندی های سفارش" />
    </children>
 </AnchorPane>

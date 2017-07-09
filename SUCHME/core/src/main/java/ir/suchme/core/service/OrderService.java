@@ -114,5 +114,14 @@ public class OrderService {
         return new BaseResponseDTO(null, "0", null);
     }
 
+    public BaseResponseDTO finalizeManufactureProductProcess(RequestProductManufactureProcess request)
+    {
+        Product parentProduct = productCatalogue.findById(request.getProductId());
+        if(parentProduct == null)
+            return new BaseResponseDTO("Product not found","-100",null);
+        productCatalogue.finalizeManufactureProcess(parentProduct, request.getComponentDTOS(), request.getProductsId());
+        return new BaseResponseDTO(null, "0", null);
+    }
+
 
 }

@@ -134,5 +134,25 @@ public class OrderController {
         }
     }
 
+    @RequestMapping( method = RequestMethod.POST,value = "/finalize")
+    public BaseResponseDTO finalizeProcess(@RequestBody RequestProductManufactureProcess request) {
+        userLoggingComponent.logUserActivity(SecurityContextHolder.getContext().getAuthentication().getName(),getClass().getSimpleName(),new Object(){}.getClass().getEnclosingMethod().getName(),request);
+
+        long startTime = System.currentTimeMillis();
+        BaseResponseDTO response =new BaseResponseDTO();
+        try {
+            request.validation();
+            response = orderService.finalizeManufactureProductProcess(request);
+            LOG.info("OrderController :finalize manufacture process : Success | : {}", response.getResponseCode());
+            return response;
+        } catch (Exception|AssertionError e) {
+            long finishTime = System.currentTimeMillis();
+            response.setError(e.getMessage());
+            response.setResponseCode("-1");
+            LOG.error("OrderController :finalize manufacture process | finished in {} ms", String.valueOf(TimeUnit.MILLISECONDS.toMillis(finishTime - startTime)), e);
+            return response;
+        }
+    }
+
 
 }

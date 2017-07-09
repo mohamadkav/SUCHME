@@ -45,6 +45,11 @@ public class ProductCatalogue {
         return productRepository.findAllByNameLike(name);
     }
 
+    public Iterable<Product> searchByStateAndName(String name, ProductState state){
+
+        return productRepository.findAllByNameAndProductState(name, state);
+    }
+
     public Product findById(String id)
     {
         return productRepository.findOne(UUID.fromString(id));
@@ -97,8 +102,10 @@ public class ProductCatalogue {
             ir.suchme.core.domain.entity.Component c = componentCatalogue.findOne(componentDTO.getId());
             Supplier s = supplierRepository.findOne(UUID.fromString(componentDTO.getSupplierId()));
             SupplyComponent sc = supplyComponentCatalogue.findOneByComponentAndSupplierId(c, s);
-            if(sc != null)
+            if(sc != null) {
                 supplyComponents.add(sc);
+            }
+            product.setSupplyComponents(supplyComponents);
         }
         Set<Product> subProducts = new HashSet<>();
         for (String productId : productsId)
@@ -110,10 +117,21 @@ public class ProductCatalogue {
                 productRepository.save(p);
             }
         }
+
+        List<Process> p = Process.makeProcess(product);
+
         product.setSupplyComponents(supplyComponents);
         product.setSubProducts(subProducts);
+        productRepository.save(product);
+    }
+
+    public void finalizeManufactureProcess(Product product, List<ComponentDTO> componentDTOS, Set<String> productsId)
+    {
+        createManufactureProcess(product, componentDTOS, productsId);
         product.setProductState(ProductState.AVAILABLE);
         productRepository.save(product);
     }
+
+
 
 }

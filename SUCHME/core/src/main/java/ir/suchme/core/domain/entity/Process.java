@@ -1,9 +1,6 @@
 package ir.suchme.core.domain.entity;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by Farzin on 7/8/2017.
@@ -54,15 +51,30 @@ public class Process{
     }
 
 
-    public List<Process> makeProcess(Product product)
+    public static List<Process> makeProcess(Product product)
     {
-        Stack<Process> queue = new Stack<>();
+
+        if(product.getSubProducts() == null || product.getSubProducts().size() == 0)
+        {
+            List<Process> out = new LinkedList<>();
+            Process p = new Process(product);
+            p.setSupplyComponents(product.getSupplyComponents());
+            out.add(p);
+            return out;
+        }
+
+        List<Process> processes = new LinkedList<>();
         for (Product sub : product.getSubProducts())
         {
-//            queue.push()
+            processes.addAll(makeProcess(sub));
         }
-        return null;
+        Process p2 = new Process(product);
+        p2.setSupplyComponents(product.getSupplyComponents());
+        processes.add(p2);
+        return processes;
     }
+
+
 }
 
 

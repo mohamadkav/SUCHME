@@ -8,6 +8,8 @@ import ir.suchme.common.dto.base.RequestDTO;
 public class RequestSearchProductDTO implements RequestDTO{
     private String name;
 
+    private String state;
+
     @Override
     public void validation() {
 
@@ -33,5 +35,13 @@ public class RequestSearchProductDTO implements RequestDTO{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
