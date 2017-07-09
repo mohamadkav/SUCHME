@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="576.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.suchme.client.report.ReportManufactureProcessPresenter">
+   <children>
+      <Separator layoutX="574.0" layoutY="66.0" orientation="VERTICAL" prefHeight="464.0" prefWidth="7.0" />
+      <TextField fx:id="productSearchBox" layoutX="665.0" layoutY="69.0" />
+      <TableView fx:id="productsTable" layoutX="622.0" layoutY="110.0" prefHeight="407.0" prefWidth="280.0">
+        <columns>
+          <TableColumn fx:id="productName1" prefWidth="279.0" text="نام" />
+        </columns>
+      </TableView>
+      <TextField fx:id="newSupplierName" layoutX="81.0" layoutY="248.0" visible="false" />
+      <TableView fx:id="processTable" layoutX="63.0" layoutY="110.0" prefHeight="407.0" prefWidth="469.0">
+         <columns>
+            <TableColumn fx:id="productName" prefWidth="67.0" text="نام محصول" />
+            <TableColumn fx:id="productProcess" prefWidth="401.0" text="فرایند تولید" />
+         </columns>
+      </TableView>
+      <Label layoutX="245.0" layoutY="73.0" text="فرایند تولید محصول" />
+      <Label layoutX="743.0" layoutY="32.0" text="جستجوی محصولات موجود" />
+      <Button fx:id="productSearchButton" layoutX="855.0" layoutY="69.0" mnemonicParsing="false" text="جستجو" />
+   </children>
+</AnchorPane>
