@@ -29,7 +29,6 @@ public class SupplyComponentDTO {
                 ", price=" + price +
                 ", timeToSupply=" + timeToSupply +
                 ", quantity=" + quantity +
-                ", id='" + id + '\'' +
                 '}';
     }
 
@@ -43,6 +42,54 @@ public class SupplyComponentDTO {
         this.price = price;
         this.timeToSupply = timeToSupply;
         this.quantity = quantity;
+        this.id = id;
+    }
+
+    public ComponentDTO getComponent() {
+        return component;
+    }
+
+    public void setComponent(ComponentDTO component) {
+        this.component = component;
+    }
+
+    public SupplierDTO getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(SupplierDTO supplier) {
+        this.supplier = supplier;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getTimeToSupply() {
+        return timeToSupply;
+    }
+
+    public void setTimeToSupply(Integer timeToSupply) {
+        this.timeToSupply = timeToSupply;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by mohammad on 6/18/17.
  */
 public class ResponseGetDifferentPathsDTO extends BaseResponseDTO{
-    private HashMap<ComponentDTO,List<SupplierDTO>> pathDTOs;
+    private HashMap<ComponentDTO,List<SupplyComponentDTO>> pathDTOs;
 
     @Override
     public String toString() {
@@ -21,11 +21,11 @@ public class ResponseGetDifferentPathsDTO extends BaseResponseDTO{
                 '}';
     }
 
-    public HashMap<ComponentDTO, List<SupplierDTO>> getPathDTOs() {
+    public HashMap<ComponentDTO, List<SupplyComponentDTO>> getPathDTOs() {
         return pathDTOs;
     }
 
-    public void setPathDTOs(HashMap<ComponentDTO, List<SupplierDTO>> pathDTOs) {
+    public void setPathDTOs(HashMap<ComponentDTO, List<SupplyComponentDTO>> pathDTOs) {
         this.pathDTOs = pathDTOs;
     }
 
@@ -33,13 +33,13 @@ public class ResponseGetDifferentPathsDTO extends BaseResponseDTO{
 
     }
 
-    public ResponseGetDifferentPathsDTO(String error, String responseCode, String userId, HashMap<ComponentDTO, List<SupplierDTO>> pathDTOs) {
+    public ResponseGetDifferentPathsDTO(String error, String responseCode, String userId, HashMap<ComponentDTO, List<SupplyComponentDTO>> pathDTOs) {
 
         super(error, responseCode, userId);
         this.pathDTOs = pathDTOs;
     }
 
-    public ResponseGetDifferentPathsDTO(HashMap<ComponentDTO, List<SupplierDTO>> pathDTOs) {
+    public ResponseGetDifferentPathsDTO(HashMap<ComponentDTO, List<SupplyComponentDTO>> pathDTOs) {
         this.pathDTOs = pathDTOs;
     }
 }

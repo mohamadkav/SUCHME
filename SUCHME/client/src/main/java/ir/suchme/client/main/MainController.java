@@ -26,6 +26,7 @@ public class MainController implements Initializable {
     @FXML private MenuItem productBalanceReport;
     @FXML private MenuItem predictPriceAndDeliveryTime;
     @FXML private MenuItem assignMinMaxMenu;
+    @FXML private MenuItem supplyPathMenu;
     @FXML private MenuItem getQuantityMenu;
     @FXML private MenuItem orderComponent;
     @FXML private MenuItem orderList;
@@ -77,6 +78,21 @@ public class MainController implements Initializable {
                 Parent parent = null;
                 try {
                     parent = FXMLLoader.load(getClass().getClassLoader().getResource("assign-minmax.fxml"));
+                    primaryPane.getChildren().clear();
+                    primaryPane.getChildren().add(parent);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        supplyPathMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent parent = null;
+                try {
+                    parent = FXMLLoader.load(getClass().getClassLoader().getResource("supply-paths.fxml"));
                     primaryPane.getChildren().clear();
                     primaryPane.getChildren().add(parent);
                 }
