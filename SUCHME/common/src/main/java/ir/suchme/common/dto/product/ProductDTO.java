@@ -1,5 +1,7 @@
 package ir.suchme.common.dto.product;
 
+import java.util.List;
+
 /**
  * Created by mohammad on 6/18/17.
  */
@@ -11,6 +13,8 @@ public class ProductDTO {
     private String name;
 
     private Integer quantity;
+
+    private List<RequirmentDTO> requirmentDTOS;
 
     public ProductDTO() {
     }
@@ -62,5 +66,13 @@ public class ProductDTO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public List<RequirmentDTO> getRequirmentDTOS() {
+        return requirmentDTOS;
+    }
+
+    public void setRequirmentDTOS(List<RequirmentDTO> requirmentDTOS) {
+        this.requirmentDTOS = requirmentDTOS;
     }
 }
