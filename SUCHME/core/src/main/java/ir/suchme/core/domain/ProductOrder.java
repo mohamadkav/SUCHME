@@ -26,6 +26,9 @@ public class ProductOrder extends Order{
         setQuantity(quantity);
     }
 
+    public ProductOrder() {
+    }
+
     public ProductOrder(Product product) {
         this.product = product;
     }
