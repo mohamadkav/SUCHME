@@ -7,10 +7,7 @@ import ir.suchme.core.domain.entity.SupplyComponent;
 import ir.suchme.core.domain.repository.SupplyComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Farzin on 7/9/2017.
@@ -37,6 +34,11 @@ public class SupplyComponentCatalogue {
     public HashMap<Component,List<Supplier>> getDifferentPathsForProduct(Product product){
         Set<SupplyComponent> supplyComponents=product.getSupplyComponents();
         HashMap<Component,List<Supplier>> toReturn=new HashMap<>();
-
+        for(SupplyComponent supplyComponent:supplyComponents){
+            toReturn.put(supplyComponent.getComponent(),new ArrayList<>());
+            for(SupplyComponent componentSupplyComponents:supplyComponent.getComponent().getSupplyComponents()){
+                toReturn.get(supplyComponent.getComponent()).add(componentSupplyComponents.getSupplier());
+            }
+        }
     }
 }

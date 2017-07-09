@@ -55,7 +55,7 @@ public class SearchService {
     public ResponseSearchProductDTO searchProduct(RequestSearchProductDTO request){
         List<ProductDTO> productDTOS=new ArrayList<>();
         for(Product product:productCatalogue.search(request.getName()))
-            productDTOS.add(new ProductDTO(product.getId().toString(),product.getPrice(),product.getName(),product.getQuantity()));
+            productDTOS.add(new ProductDTO(product.getId().toString(),product.getPrice(),product.getName()));
         return new ResponseSearchProductDTO(null,"0",null,productDTOS);
     }
 

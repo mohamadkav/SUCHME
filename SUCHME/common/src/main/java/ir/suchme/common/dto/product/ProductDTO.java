@@ -10,16 +10,13 @@ public class ProductDTO {
 
     private String name;
 
-    private Integer quantity;
-
     public ProductDTO() {
     }
 
-    public ProductDTO(String id, Integer price, String name,Integer quantity) {
+    public ProductDTO(String id, Integer price, String name) {
         this.id = id;
         this.price = price;
         this.name = name;
-        this.quantity=quantity;
     }
 
     public String getId() {
@@ -52,15 +49,6 @@ public class ProductDTO {
                 "id='" + id + '\'' +
                 ", price=" + price +
                 ", name='" + name + '\'' +
-                ", quantity=" + quantity +
                 '}';
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 }
