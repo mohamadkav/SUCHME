@@ -16,7 +16,7 @@ public class Order extends BaseEntity{
     @Column(name = "QUANTITY",nullable = false)
     private Integer quantity;
 
-    @Column(name = "PRICE",nullable = false)
+    @Column(name = "PRICE")
     private Integer price;
 
     public Integer getQuantity() {
